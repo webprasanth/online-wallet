@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OnlineWallet.Core.Repositories;
+using OnlineWallet.Infrastructure.Repositories;
+using OnlineWallet.Infrastructure.Services;
 
 namespace OnlineWallet
 {
@@ -16,6 +19,9 @@ namespace OnlineWallet
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+
             services.AddMvc();
         }
 

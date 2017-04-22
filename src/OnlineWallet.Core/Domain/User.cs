@@ -10,7 +10,7 @@ namespace OnlineWallet.Core.Domain
         public User(string email, string password, string fullName, int phoneNumber, string address)
         {
             Id = Guid.NewGuid();
-            Email = email;
+            Email = email.ToLowerInvariant();
             FullName = fullName;
             PhoneNumber = phoneNumber;
             CreatedAt = DateTime.UtcNow;
