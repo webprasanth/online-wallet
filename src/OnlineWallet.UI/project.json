@@ -11,7 +11,8 @@
     "Microsoft.AspNetCore.Server.IISIntegration": "1.1.1",
     "Microsoft.AspNetCore.Diagnostics": "1.1.1",
     "jQWidgets.AspNetCore.Mvc.TagHelpers": "1.1.0",
-    "OnlineWallet.Infrastructure": "1.0.0-*"
+    "OnlineWallet.Infrastructure": "1.0.0-*",
+    "Microsoft.Extensions.Logging.Debug": "1.1.0"
   },
 
   "tools": {
