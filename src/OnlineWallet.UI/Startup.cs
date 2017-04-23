@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OnlineWallet.Core.Repositories;
+using OnlineWallet.Infrastructure.Mappers;
 using OnlineWallet.Infrastructure.Repositories;
 using OnlineWallet.Infrastructure.Services;
 
@@ -21,6 +22,7 @@ namespace OnlineWallet
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddSingleton(AutoMapperConfig.Initialize());
 
             services.AddMvc();
         }

@@ -22,11 +22,8 @@ namespace OnlineWallet.Controllers
         public IActionResult Index()
         {
             var user = _userService.Get("user1@aol.com");
-            ViewData["email"] = "user1@aol.com";
-            ViewData["fullName"] = user.FullName;
-            ViewData["number"] = user.PhoneNumber;
 
-            return View();
+            return View(user);
         }
     }
 }

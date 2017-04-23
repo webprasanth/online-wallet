@@ -1,18 +1,17 @@
-﻿@{
-    ViewBag.Title = "User's Page";
-}
+﻿@model OnlineWallet.Infrastructure.Dto.UserDto
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>@ViewBag.Title</title>
+    <title>User site</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    @ViewBag.Title
-    @ViewData["email"]
-    @ViewData["fullName"]
-    @ViewData["number"]
+    @Model.Email
+    @Model.FullName
+    @Model.Address
+    @Model.PhoneNumber
+    @Model.CreatedAt
 </body>
 </html>

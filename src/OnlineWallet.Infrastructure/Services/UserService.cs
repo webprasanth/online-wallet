@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using OnlineWallet.Core.Domain;
 using OnlineWallet.Core.Repositories;
 using OnlineWallet.Infrastructure.Dto;
@@ -8,10 +9,12 @@ namespace OnlineWallet.Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public void Register(string email, string password, string fullName, int phoneNumber, string address)
@@ -30,16 +33,7 @@ namespace OnlineWallet.Infrastructure.Services
         {
             var user = _userRepository.Get(mail);
 
-            return new UserDto()
-            {
-                Account = user.Account,
-                Address = user.Address,
-                CreatedAt = user.CreatedAt,
-                Email = user.Email,
-                FullName = user.FullName,
-                Id = user.Id,
-                PhoneNumber = user.PhoneNumber
-            };
+            return _mapper.Map<User, UserDto>(user);
         }
     }
 }

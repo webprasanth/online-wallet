@@ -12,7 +12,8 @@
     "Microsoft.AspNetCore.Diagnostics": "1.1.1",
     "jQWidgets.AspNetCore.Mvc.TagHelpers": "1.1.0",
     "OnlineWallet.Infrastructure": "1.0.0-*",
-    "Microsoft.Extensions.Logging.Debug": "1.1.0"
+    "Microsoft.Extensions.Logging.Debug": "1.1.0",
+    "AutoMapper": "6.0.2"
   },
 
   "tools": {
