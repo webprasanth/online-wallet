@@ -7,10 +7,11 @@ namespace OnlineWallet.Core.Domain
 {
     public class User
     {
-        public User(string email, string password, string fullName, int phoneNumber, string address)
+        public User(string email, string password, string fullName, int phoneNumber = 0, string address = "")
         {
             Id = Guid.NewGuid();
             Email = email.ToLowerInvariant();
+            Password = password;
             FullName = fullName;
             PhoneNumber = phoneNumber;
             CreatedAt = DateTime.UtcNow;
@@ -30,7 +31,7 @@ namespace OnlineWallet.Core.Domain
 
         public DateTime CreatedAt { get; protected set; }
 
-        public string Address { get; protected set; }
+        public string Address { get; protected set; } 
 
         public Account Account { get; protected set; }
 

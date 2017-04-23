@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OnlineWallet.Infrastructure.Commands.User;
 using OnlineWallet.Infrastructure.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,6 +25,14 @@ namespace OnlineWallet.Controllers
             var user = _userService.Get("user1@aol.com");
 
             return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult Register(CreateUser request)
+        {
+            _userService.Register(request.Email,request.Password,request.FullName);
+
+            return View();
         }
     }
 }

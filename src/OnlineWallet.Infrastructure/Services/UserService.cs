@@ -17,7 +17,7 @@ namespace OnlineWallet.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void Register(string email, string password, string fullName, int phoneNumber, string address)
+        public void Register(string email, string password, string fullName)
         {
             var user = _userRepository.Get(email);
 
@@ -26,7 +26,7 @@ namespace OnlineWallet.Infrastructure.Services
                 throw new Exception("User with such email already exists");
             }
 
-            user = new User(email,password,fullName,phoneNumber,address);
+            user = new User(email,password,fullName);
         }
 
         public UserDto Get(string mail)
