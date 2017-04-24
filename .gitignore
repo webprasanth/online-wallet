@@ -4,8 +4,6 @@
 _build/
 _site/
 Properties/
-node_modules/
-wwwroot/
 
 # User-specific files
 *.suo

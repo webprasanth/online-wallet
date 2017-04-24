@@ -32,7 +32,7 @@ namespace OnlineWallet.Controllers
         {
             _userService.Register(request.Email,request.Password,request.FullName);
 
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
