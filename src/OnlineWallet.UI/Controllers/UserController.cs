@@ -27,12 +27,19 @@ namespace OnlineWallet.Controllers
             return View(user);
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Register(CreateUser request)
         {
             _userService.Register(request.Email,request.Password,request.FullName);
 
-            return RedirectToAction("Index");
+            return View("Index");
         }
     }
 }

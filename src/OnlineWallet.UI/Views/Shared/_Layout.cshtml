@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - Online Wallet</title>
 
-    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="lib/bootswatch/superhero/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/bootswatch/superhero/bootstrap.css" />
 </head>
 <body>
 
@@ -29,8 +29,10 @@
         </div>
     </nav>
 
-    <div>
-        @RenderBody()
-    </div>
+<div>
+    @RenderBody()
+</div>
+
+    @RenderSection("scripts",false)
 </body>
 </html>

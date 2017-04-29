@@ -818,7 +818,7 @@ pre code {
   }
 }
 
-.container-fluid {
+.container {
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -826,25 +826,25 @@ pre code {
   padding-left: 15px;
 }
 @media (min-width: 576px) {
-  .container-fluid {
+  .container {
     padding-right: 15px;
     padding-left: 15px;
   }
 }
 @media (min-width: 768px) {
-  .container-fluid {
+  .container {
     padding-right: 15px;
     padding-left: 15px;
   }
 }
 @media (min-width: 992px) {
-  .container-fluid {
+  .container {
     padding-right: 15px;
     padding-left: 15px;
   }
 }
 @media (min-width: 1200px) {
-  .container-fluid {
+  .container {
     padding-right: 15px;
     padding-left: 15px;
   }

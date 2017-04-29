@@ -1606,7 +1606,7 @@ pre code {
     width: 1170px;
   }
 }
-.container-fluid {
+.container {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
@@ -4229,17 +4229,17 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .container > .navbar-header,
-.container-fluid > .navbar-header,
+.container > .navbar-header,
 .container > .navbar-collapse,
-.container-fluid > .navbar-collapse {
+.container > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px;
 }
 @media (min-width: 768px) {
   .container > .navbar-header,
-  .container-fluid > .navbar-header,
+  .container > .navbar-header,
   .container > .navbar-collapse,
-  .container-fluid > .navbar-collapse {
+  .container > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
   }
@@ -4291,7 +4291,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,
-  .navbar > .container-fluid .navbar-brand {
+  .navbar > .container .navbar-brand {
     margin-left: -15px;
   }
 }
@@ -4979,7 +4979,7 @@ a.badge:focus {
   border-top-color: #000000;
 }
 .container .jumbotron,
-.container-fluid .jumbotron {
+.container .jumbotron {
   border-radius: 6px;
   padding-left: 15px;
   padding-right: 15px;
@@ -4993,7 +4993,7 @@ a.badge:focus {
     padding-bottom: 48px;
   }
   .container .jumbotron,
-  .container-fluid .jumbotron {
+  .container .jumbotron {
     padding-left: 60px;
     padding-right: 60px;
   }
@@ -6465,8 +6465,8 @@ button.close {
 .dl-horizontal dd:after,
 .container:before,
 .container:after,
-.container-fluid:before,
-.container-fluid:after,
+.container:before,
+.container:after,
 .row:before,
 .row:after,
 .form-horizontal .form-group:before,
@@ -6497,7 +6497,7 @@ button.close {
 .clearfix:after,
 .dl-horizontal dd:after,
 .container:after,
-.container-fluid:after,
+.container:after,
 .row:after,
 .form-horizontal .form-group:after,
 .btn-toolbar:after,
