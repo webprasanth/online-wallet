@@ -1,11 +1,12 @@
-﻿using OnlineWallet.Core.Domain;
+﻿using System.Threading.Tasks;
+using OnlineWallet.Core.Domain;
 using OnlineWallet.Infrastructure.Dto;
 
 namespace OnlineWallet.Infrastructure.Services
 {
     public interface IUserService
     {
-        UserDto Get(string mail);
-        void Register(string email, string password, string fullName);
+        Task<UserDto> GetAsync(string mail);
+        Task RegisterAsync(string email, string password, string fullName);
     }
 }

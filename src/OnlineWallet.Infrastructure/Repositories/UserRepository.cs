@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using OnlineWallet.Core.Domain;
 using OnlineWallet.Core.Repositories;
 
@@ -15,33 +16,36 @@ namespace OnlineWallet.Infrastructure.Repositories
 
         };
 
-        public User Get(Guid id)
+        public async Task<User> GetAsync(Guid id)
         {
-            return _users.SingleOrDefault(x => x.Id == id);
+            return await Task.FromResult(_users.SingleOrDefault(x => x.Id == id));
         }
 
-        public User Get(string email)
+        public async Task<User> GetAsync(string email)
         {
-            return _users.SingleOrDefault(x => x.Email.ToLowerInvariant() == email);
+            return await Task.FromResult(_users.SingleOrDefault(x => x.Email.ToLowerInvariant() == email));
         }
 
-        public IEnumerable<User> GetAll()
-            => _users;
+        public async Task<IEnumerable<User>> GetAllAsync()
+            => await Task.FromResult(_users);
 
-        public void Add(User user)
+        public async Task AddAsync(User user)
         {
             _users.Add(user);
+            await Task.CompletedTask;
         }
 
-        public void Update(User user)
+        public async Task UpdateAsync(User user)
         {
             //TO DO
+            await Task.CompletedTask;
         }
 
-        public void Remove(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
-            var user = Get(id);
+            var user = await GetAsync(id);
             _users.Remove(user);
+            await Task.CompletedTask;
         }
     }
 }

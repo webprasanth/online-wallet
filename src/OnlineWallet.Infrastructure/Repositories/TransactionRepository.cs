@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using OnlineWallet.Core.Domain;
 using OnlineWallet.Core.Repositories;
 
@@ -10,28 +11,31 @@ namespace OnlineWallet.Infrastructure.Repositories
     {
         private static ISet<Transaction> _transactions = new HashSet<Transaction>();
 
-        public Transaction Get(Guid id)
+        public async Task<Transaction> GetAsync(Guid id)
         {
-            return _transactions.SingleOrDefault(t => t.Id == id);
+            return await Task.FromResult(_transactions.SingleOrDefault(t => t.Id == id));
         }
 
-        public IEnumerable<Transaction> GetAll()
-            => _transactions;
+        public async Task<IEnumerable<Transaction>> GetAllAsync()
+            => await Task.FromResult(_transactions);
 
-        public void Add(Transaction transaction)
+
+        public async Task AddAsync(Transaction transaction)
         {
             _transactions.Add(transaction);
+            await Task.CompletedTask;
         }
 
-        public void Update(Transaction transaction)
+        public async Task UpdateAsync(Transaction transaction)
         {
             //TO DO
+            await Task.CompletedTask;
         }
 
-        public void Remove(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
-            var transaction = Get(id);
-            _transactions.Remove(transaction);
+            var transaction = await GetAsync(id);
+           await Task.FromResult(_transactions.Remove(transaction));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using OnlineWallet.Core.Domain;
 
 namespace OnlineWallet.Core.Repositories
@@ -8,14 +8,14 @@ namespace OnlineWallet.Core.Repositories
     public interface IUserRepository
     {
 
-        User Get(Guid id);
-        User Get(string email);
-        IEnumerable<User> GetAll();
+        Task<User> GetAsync(Guid id);
+        Task<User> GetAsync(string email);
+        Task<IEnumerable<User>> GetAllAsync();
 
-        void Add(User user);
+        Task AddAsync(User user);
 
-        void Update(User user);
+        Task UpdateAsync(User user);
 
-        void Remove(Guid id);
+        Task RemoveAsync(Guid id);
     }
 }

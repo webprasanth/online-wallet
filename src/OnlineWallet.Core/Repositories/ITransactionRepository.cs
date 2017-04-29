@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using OnlineWallet.Core.Domain;
 
 namespace OnlineWallet.Core.Repositories
 {
     public interface ITransactionRepository
     {
-        Transaction Get(Guid id);
-        IEnumerable<Transaction> GetAll();
+        Task<Transaction> GetAsync(Guid id);
+        Task<IEnumerable<Transaction>> GetAllAsync();
 
-        void Add(Transaction transaction);
+        Task AddAsync(Transaction transaction);
 
-        void Update(Transaction transaction);
+        Task UpdateAsync(Transaction transaction);
 
-        void Remove(Guid id);
+        Task RemoveAsync(Guid id);
     }
 }

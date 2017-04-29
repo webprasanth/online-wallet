@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.User;
 using OnlineWallet.Infrastructure.Services;
 
@@ -13,16 +14,18 @@ namespace OnlineWallet.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly ICommandDispatcher _commandDispatcher;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ICommandDispatcher commandDispatcher)
         {
             _userService = userService;
+            _commandDispatcher = commandDispatcher;
         }
 
         // GET: /<controller>/
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var user = _userService.Get("user1@aol.com");
+            var user = await _userService.GetAsync("user1@aol.com");
 
             return View(user);
         }
@@ -30,16 +33,14 @@ namespace OnlineWallet.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-
             return View();
         }
 
         [HttpPost]
-        public IActionResult Register(CreateUser request)
+        public async Task<IActionResult> Register(CreateUser command)
         {
-            _userService.Register(request.Email,request.Password,request.FullName);
-
-            return View("Index");
+            await _commandDispatcher.DispatchAsync(command);
+            return View();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using OnlineWallet.Core.Domain;
 using OnlineWallet.Core.Repositories;
@@ -17,9 +18,9 @@ namespace OnlineWallet.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void Register(string email, string password, string fullName)
+        public async Task RegisterAsync(string email, string password, string fullName)
         {
-            var user = _userRepository.Get(email);
+            var user = await _userRepository.GetAsync(email);
 
             if (user != null)
             {
@@ -27,11 +28,13 @@ namespace OnlineWallet.Infrastructure.Services
             }
 
             user = new User(email,password,fullName);
+
+            await _userRepository.AddAsync(user);
         }
 
-        public UserDto Get(string mail)
+        public async Task<UserDto> GetAsync(string mail)
         {
-            var user = _userRepository.Get(mail);
+            var user = await _userRepository.GetAsync(mail);
 
             return _mapper.Map<User, UserDto>(user);
         }
