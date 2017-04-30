@@ -1,20 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7DFB6825-7EA8-4432-99C2-6757E4081E77}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OnlineWallet.Core", "src\OnlineWallet.Core\OnlineWallet.Core.xproj", "{F55FE6C6-3659-41D7-A08B-E2DDBDFAF66C}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OnlineWallet.Infrastructure", "src\OnlineWallet.Infrastructure\OnlineWallet.Infrastructure.xproj", "{0E094374-966E-4C08-87DC-0E12C1728AD3}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OnlineWallet.UI", "src\OnlineWallet.UI\OnlineWallet.UI.xproj", "{F171A93A-A246-46CB-9C67-9A4237382103}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3BC8BCDB-8BED-481C-B4FA-489CEFEDD202}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWallet.Core", "src\OnlineWallet.Core\OnlineWallet.Core.csproj", "{F55FE6C6-3659-41D7-A08B-E2DDBDFAF66C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWallet.Infrastructure", "src\OnlineWallet.Infrastructure\OnlineWallet.Infrastructure.csproj", "{0E094374-966E-4C08-87DC-0E12C1728AD3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWallet.UI", "src\OnlineWallet.UI\OnlineWallet.UI.csproj", "{F171A93A-A246-46CB-9C67-9A4237382103}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
