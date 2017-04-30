@@ -24,7 +24,7 @@ namespace OnlineWallet.Infrastructure.Services
 
             if (user != null)
             {
-                throw new Exception("User with such email already exists");
+                throw new InvalidOperationException("User with such email already exists");
             }
 
             user = new User(email,password,fullName);

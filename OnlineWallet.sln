@@ -7,11 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7DFB6825-7EA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3BC8BCDB-8BED-481C-B4FA-489CEFEDD202}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWallet.Core", "src\OnlineWallet.Core\OnlineWallet.Core.csproj", "{F55FE6C6-3659-41D7-A08B-E2DDBDFAF66C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWallet.Infrastructure", "OnlineWallet.Infrastructure\OnlineWallet.Infrastructure.csproj", "{0E094374-966E-4C08-87DC-0E12C1728AD3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWallet.Infrastructure", "src\OnlineWallet.Infrastructure\OnlineWallet.Infrastructure.csproj", "{0E094374-966E-4C08-87DC-0E12C1728AD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWallet.UI", "OnlineWallet.UI\OnlineWallet.UI.csproj", "{F171A93A-A246-46CB-9C67-9A4237382103}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWallet.UI", "src\OnlineWallet.UI\OnlineWallet.UI.csproj", "{F171A93A-A246-46CB-9C67-9A4237382103}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineWallet.IntegrationTests", "OnlineWallet.IntegrationTests\OnlineWallet.IntegrationTests.csproj", "{785A15D7-09C8-4ED0-B8AE-DA30CAABD9C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWallet.Core", "OnlineWallet.Core\OnlineWallet.Core.csproj", "{DC3FE074-5A97-4E8E-9A76-E947AD5F1BD8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineWallet.UnitTests", "OnlineWallet.UnitTests\OnlineWallet.UnitTests.csproj", "{C3008566-C2A2-46CC-B731-080CAF14FE78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F55FE6C6-3659-41D7-A08B-E2DDBDFAF66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F55FE6C6-3659-41D7-A08B-E2DDBDFAF66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F55FE6C6-3659-41D7-A08B-E2DDBDFAF66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F55FE6C6-3659-41D7-A08B-E2DDBDFAF66C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E094374-966E-4C08-87DC-0E12C1728AD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E094374-966E-4C08-87DC-0E12C1728AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E094374-966E-4C08-87DC-0E12C1728AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -31,13 +31,26 @@ Global
 		{F171A93A-A246-46CB-9C67-9A4237382103}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F171A93A-A246-46CB-9C67-9A4237382103}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F171A93A-A246-46CB-9C67-9A4237382103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{785A15D7-09C8-4ED0-B8AE-DA30CAABD9C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{785A15D7-09C8-4ED0-B8AE-DA30CAABD9C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{785A15D7-09C8-4ED0-B8AE-DA30CAABD9C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{785A15D7-09C8-4ED0-B8AE-DA30CAABD9C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC3FE074-5A97-4E8E-9A76-E947AD5F1BD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC3FE074-5A97-4E8E-9A76-E947AD5F1BD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC3FE074-5A97-4E8E-9A76-E947AD5F1BD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC3FE074-5A97-4E8E-9A76-E947AD5F1BD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3008566-C2A2-46CC-B731-080CAF14FE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3008566-C2A2-46CC-B731-080CAF14FE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3008566-C2A2-46CC-B731-080CAF14FE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3008566-C2A2-46CC-B731-080CAF14FE78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{F55FE6C6-3659-41D7-A08B-E2DDBDFAF66C} = {7DFB6825-7EA8-4432-99C2-6757E4081E77}
 		{0E094374-966E-4C08-87DC-0E12C1728AD3} = {7DFB6825-7EA8-4432-99C2-6757E4081E77}
 		{F171A93A-A246-46CB-9C67-9A4237382103} = {7DFB6825-7EA8-4432-99C2-6757E4081E77}
+		{785A15D7-09C8-4ED0-B8AE-DA30CAABD9C6} = {7DFB6825-7EA8-4432-99C2-6757E4081E77}
+		{DC3FE074-5A97-4E8E-9A76-E947AD5F1BD8} = {7DFB6825-7EA8-4432-99C2-6757E4081E77}
 	EndGlobalSection
 EndGlobal
