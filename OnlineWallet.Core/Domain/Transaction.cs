@@ -4,6 +4,9 @@ namespace OnlineWallet.Core.Domain
 {
     public abstract class Transaction
     {
+        protected Transaction()
+        {
+        }
         protected Transaction(decimal amount,User userFrom)
         {
             Id = Guid.NewGuid();
