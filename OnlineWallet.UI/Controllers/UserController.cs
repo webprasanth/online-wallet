@@ -34,9 +34,18 @@ namespace OnlineWallet.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(CreateUser command)
+        public async Task<IActionResult> Register(CreateUser command,string returnUrl)
         {
-            await _commandDispatcher.DispatchAsync(command);
+            if (ModelState.IsValid)
+            {
+                await _commandDispatcher.DispatchAsync(command);
+
+                if (string.IsNullOrWhiteSpace(returnUrl))
+                   return RedirectToAction("Index", "User");
+                else
+                    return Redirect(returnUrl);
+            }
+
             return View();
         }
     }
