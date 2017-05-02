@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\lib\js\sign-up-validation.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="wwwroot\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>

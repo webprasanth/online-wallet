@@ -8,6 +8,7 @@
 {
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/js/sign-up-validation.js"></script>
 }
 
 <div class="row">
@@ -15,33 +16,33 @@
         <form method="post" class="form-horizontal">
             <fieldset>
                 <legend>@ViewBag.Title</legend>
-                <div asp-validation-summary="ModelOnly"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Email" class="col-md-3 control-label">Email</label>
                     <div class="col-md-6">
-                        <input asp-for="Email" type="email" class="form-control" id="inputEmail" placeholder="Email" style=" cursor: auto;" autocomplete="on">
-                        <span asp-validation-for="Email"></span>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Email" style=" cursor: auto;" autocomplete="on">
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword" class="col-md-3 control-label">Password</label>
+                    <label asp-for="Password" class="col-md-3 control-label">Password</label>
                     <div class="col-md-6">
-                        <input asp-for="Password" type="password" class="form-control" id="inputPassword" placeholder="Password" style="cursor: auto;" autocomplete="off">
-                        <span asp-validation-for="Password"></span>
+                        <input asp-for="Password" type="password" id="password" class="form-control" placeholder="Password" style="cursor: auto;" autocomplete="off">
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputConfirmPassword" class="col-md-3 control-label">Confirm Password</label>
+                    <label asp-for="Password" class="col-md-3 control-label">Confirm Password</label>
                     <div class="col-md-6">
-                        <input asp-for="Password" type="password" class="form-control" id="inputConfirmPassword" placeholder="Retype your password" style="cursor: auto;" autocomplete="off">
-                        <span asp-validation-for="Password"></span>
+                        <input type="password" class="form-control" oninput="check(this)" placeholder="Retype your password" style="cursor: auto;" autocomplete="off">
+                        <span id="confirmPasswordspan" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputName" class="col-md-3 control-label">Full name</label>
+                    <label asp-for="FullName" class="col-md-3 control-label">Full name</label>
                     <div class="col-md-6">
-                        <input asp-for="FullName" type="text" class="form-control" id="inputName" placeholder="Enter your name" style=" cursor: auto;" autocomplete="off">
-                        <span asp-validation-for="FullName"></span>
+                        <input asp-for="FullName" type="text" class="form-control" placeholder="Enter your name" style=" cursor: auto;" autocomplete="off">
+                        <span asp-validation-for="FullName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
