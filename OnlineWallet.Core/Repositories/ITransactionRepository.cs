@@ -8,7 +8,10 @@ namespace OnlineWallet.Core.Repositories
     public interface ITransactionRepository
     {
         Task<Transaction> GetAsync(Guid id);
+
         Task<IEnumerable<Transaction>> GetAllAsync();
+
+        Task<IEnumerable<Transaction>> GetAllAsync(User user);
 
         Task AddAsync(Transaction transaction);
 

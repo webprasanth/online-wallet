@@ -19,7 +19,9 @@ namespace OnlineWallet.Infrastructure.Repositories
         public async Task<IEnumerable<Transaction>> GetAllAsync()
             => await Task.FromResult(_transactions);
 
-
+        public async Task<IEnumerable<Transaction>> GetAllAsync(User user)
+           => await Task.FromResult(_transactions.Where(t => t.UserFrom == user));
+        
         public async Task AddAsync(Transaction transaction)
         {
             _transactions.Add(transaction);

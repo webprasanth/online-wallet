@@ -14,8 +14,6 @@ namespace OnlineWallet.Core.Domain
 
         public decimal Balance { get; protected set; }
 
-        public IEnumerable<Transaction> Transactions { get; protected set; }
-
         public static Account NewAccount()
             => new Account();
 
