@@ -15,28 +15,28 @@ namespace OnlineWallet.Infrastructure.Services
             _transactionRepository = transactionRepository;
             _userRepository = userRepository;
         }
-        public async Task DepositAsync(decimal amount,User user)
+        public async Task DepositAsync(decimal amount,Guid userId)
         {
             if (amount <= 0)
             {
                 throw new ArgumentException("amount of deposit must be greater than 0.");
             }
 
-            var userMakingDeposit = await _userRepository.GetAsync(user.Id);
+            var userMakingDeposit = await _userRepository.GetAsync(userId);
             userMakingDeposit.Account.IncreaseBalance(amount);
 
             var deposit = new Deposit(amount, userMakingDeposit);
             await _transactionRepository.AddAsync(deposit);
         }
 
-        public async Task WithdrawAsync(decimal amount, User user)
+        public async Task WithdrawAsync(decimal amount, Guid userId)
         {
             if (amount <= 0)
             {
                 throw new ArgumentException("amount of withdrawal must be greater than 0.");
             }
 
-            var userWithdrawing = await _userRepository.GetAsync(user.Id);
+            var userWithdrawing = await _userRepository.GetAsync(userId);
 
             userWithdrawing.Account.ReduceBalance(amount);
 
@@ -44,15 +44,15 @@ namespace OnlineWallet.Infrastructure.Services
             await _transactionRepository.AddAsync(withdrawal);
         }
 
-        public async Task TransferAsync(decimal amount, User userFrom, User userTo)
+        public async Task TransferAsync(decimal amount, Guid userId, string mailTo)
         {
             if (amount <= 0)
             {
                 throw new ArgumentException("amount of transfer must be greater than 0.");
             }
 
-            var userMakingTransfer = await _userRepository.GetAsync(userFrom.Id);
-            var userReceivingTransfer = await _userRepository.GetAsync(userTo.Id);
+            var userMakingTransfer = await _userRepository.GetAsync(userId);
+            var userReceivingTransfer = await _userRepository.GetAsync(mailTo);
 
             userMakingTransfer.Account.ReduceBalance(amount);
             userReceivingTransfer.Account.IncreaseBalance(amount);
