@@ -7,5 +7,6 @@ namespace OnlineWallet.Infrastructure.Services
     {
         Task<UserDto> GetAsync(string mail);
         Task RegisterAsync(string email, string password, string fullName);
+        Task LoginAsync(string email, string password);
     }
 }

@@ -52,6 +52,10 @@ namespace OnlineWallet.Core.Domain
             Email = email.ToLowerInvariant();
         }
 
+        public bool ValidatePassword(string password)
+        {
+            return String.Equals(password, Password);
+        }
 
         public void SetPassword(string password)
         {

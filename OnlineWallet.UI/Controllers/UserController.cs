@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.User;
@@ -8,6 +9,7 @@ using OnlineWallet.Infrastructure.Services;
 
 namespace OnlineWallet.UI.Controllers
 {
+    [Authorize(Policy = "UserOnly")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -25,28 +27,6 @@ namespace OnlineWallet.UI.Controllers
             var user = await _userService.GetAsync("user1@aol.com");
 
             return View(user);
-        }
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Register(CreateUser command,string returnUrl)
-        {
-            if (ModelState.IsValid)
-            {
-                await _commandDispatcher.DispatchAsync(command);
-
-                if (string.IsNullOrWhiteSpace(returnUrl))
-                   return RedirectToAction("Index", "User");
-                else
-                    return Redirect(returnUrl);
-            }
-
-            return View();
         }
     }
 }

@@ -9,6 +9,7 @@ using OnlineWallet.Infrastructure.Repositories;
 using OnlineWallet.Infrastructure.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using OnlineWallet.Infrastructure.IoC.Modules;
 
@@ -28,6 +29,17 @@ namespace OnlineWallet.UI
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton(AutoMapperConfig.Initialize());
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("UserOnly", policyBuilder =>
+                {
+                    policyBuilder.RequireAuthenticatedUser()
+                        .RequireAssertion(context => context.User.HasClaim("IsUser", "true"))
+                        .Build();
+                });
+            });
+
             services.AddMvc();
 
             var builder = new ContainerBuilder();
@@ -51,6 +63,16 @@ namespace OnlineWallet.UI
             }
 
             app.UseStaticFiles();
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AuthenticationScheme = "Cookie",
+                LoginPath = new PathString("/Account/Unauthorized/"), //TO DO
+                LogoutPath = new PathString("/Account/Logout"),
+                AccessDeniedPath = new PathString("/Home/Forbidden/"), //TO DO
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true
+            });
 
             app.UseMvc(routes =>
             {

@@ -32,6 +32,21 @@ namespace OnlineWallet.Infrastructure.Services
             await _userRepository.AddAsync(user);
         }
 
+        public async Task LoginAsync(string email, string password)
+        {
+            var user = await _userRepository.GetAsync(email);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException("User not found");
+            }
+
+            if (!user.ValidatePassword(password))
+            {
+                throw new InvalidOperationException("Invalid credentials.");
+            }
+        }
+
         public async Task<UserDto> GetAsync(string mail)
         {
             var user = await _userRepository.GetAsync(mail);

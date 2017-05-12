@@ -6,7 +6,7 @@ namespace OnlineWallet.UI.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

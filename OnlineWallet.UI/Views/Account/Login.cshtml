@@ -1,22 +1,22 @@
-﻿@model OnlineWallet.Infrastructure.Commands.User.CreateUser
+﻿@model OnlineWallet.UI.ViewModels.LoginViewModel
 @{
-    ViewBag.Title = "Registration";
-    Layout = "_Layout";
+    ViewBag.Title = "Login";
 }
 
 @section scripts
 {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <script src="~/lib/js/sign-up-validation.js"></script>
 }
+
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <form method="post" class="form-horizontal">
+        <form asp-action="Login" class="form-horizontal">
             <fieldset>
                 <legend>@ViewBag.Title</legend>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Email" class="col-md-3 control-label">Email</label>
                     <div class="col-md-6">
@@ -32,26 +32,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password" class="col-md-3 control-label">Confirm Password</label>
-                    <div class="col-md-6">
-                        <input type="password" class="form-control" oninput="check(this)" placeholder="Retype your password" style="cursor: auto;" autocomplete="off">
-                        <span id="confirmPasswordspan" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FullName" class="col-md-3 control-label">Full name</label>
-                    <div class="col-md-6">
-                        <input asp-for="FullName" type="text" class="form-control" placeholder="Enter your name" style=" cursor: auto;" autocomplete="off">
-                        <span asp-validation-for="FullName" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
                     <div class="col-md-6 col-md-offset-3">
-                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button type="submit" class="btn btn-primary">Login</button>
                     </div>
                 </div>
             </fieldset>
         </form>
     </div>
 </div>
-
