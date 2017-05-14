@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO.Compression;
 
 namespace OnlineWallet.Core.Domain
 {

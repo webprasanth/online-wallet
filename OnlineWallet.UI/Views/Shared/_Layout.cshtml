@@ -33,7 +33,8 @@
                     }
                     @if (!await AuthorizationService.AuthorizeAsync(User, "UserOnly"))
                     {
-                    <li><a asp-controller="Account" asp-action="Register">Register</a></li>   
+                        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
                     }
                 </ul>
             </div>

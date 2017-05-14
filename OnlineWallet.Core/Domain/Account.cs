@@ -7,10 +7,8 @@ namespace OnlineWallet.Core.Domain
     {
         protected Account()
         {
-            Id = Guid.NewGuid();
             Balance = 0;
         }
-        public Guid Id { get; protected set; }
 
         public decimal Balance { get; protected set; }
 
