@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -8,24 +7,19 @@ using Microsoft.AspNetCore.Http.Authentication;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Services;
 using OnlineWallet.UI.ViewModels;
-using OnlineWallet.Infrastructure.Commands.User;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace OnlineWallet.UI.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly ICommandDispatcher _commandDispatcher;
+        //private readonly ICommandDispatcher _commandDispatcher;
 
-        private Guid UserId
-            => HttpContext.User.Identity.IsAuthenticated ? Guid.Parse(HttpContext.User.Identity.Name) : Guid.Empty;
-
-        public AccountController(IUserService userService, ICommandDispatcher commandDispatcher)
+        public AccountController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _userService = userService;
-            _commandDispatcher = commandDispatcher;
         }
 
         [HttpGet]
@@ -81,9 +75,8 @@ namespace OnlineWallet.UI.Controllers
                 var user = await _userService.GetAsync(viewModel.Email);
                 var claims = new[]
                 {
-                    new Claim("IsUser", "true"),
-                    new Claim(ClaimTypes.Name, user.Id.ToString("N")),
-                    new Claim(ClaimTypes.NameIdentifier, "")
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString("N")),
+                    new Claim(ClaimTypes.Email, user.Email)
                 };
                 var identity = new ClaimsIdentity(claims, "password");
 
@@ -98,7 +91,7 @@ namespace OnlineWallet.UI.Controllers
             }
         }
 
-        [Authorize(Policy = "UserOnly")]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.Authentication.SignOutAsync("Cookie");

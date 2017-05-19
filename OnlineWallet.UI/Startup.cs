@@ -30,15 +30,7 @@ namespace OnlineWallet.UI
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton(AutoMapperConfig.Initialize());
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("UserOnly", policyBuilder =>
-                {
-                    policyBuilder.RequireAuthenticatedUser()
-                        .RequireAssertion(context => context.User.HasClaim("IsUser", "true"))
-                        .Build();
-                });
-            });
+            services.AddAuthorization();
 
             services.AddMvc();
 

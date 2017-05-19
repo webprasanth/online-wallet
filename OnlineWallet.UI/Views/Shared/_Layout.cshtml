@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    @if (await AuthorizationService.AuthorizeAsync(User, "UserOnly"))
+                    @if ( User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="User" asp-action="Index">User</a></li>
                     }
@@ -27,11 +27,11 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    @if (await AuthorizationService.AuthorizeAsync(User, "UserOnly"))
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
                     }
-                    @if (!await AuthorizationService.AuthorizeAsync(User, "UserOnly"))
+                    @if (!User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="Account" asp-action="Login">Login</a></li>
                         <li><a asp-controller="Account" asp-action="Register">Register</a></li>
