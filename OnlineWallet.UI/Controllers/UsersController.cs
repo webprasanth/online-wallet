@@ -9,11 +9,11 @@ using OnlineWallet.Infrastructure.Services;
 namespace OnlineWallet.UI.Controllers
 {
     [Authorize]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _userService = userService;
         }
@@ -21,7 +21,7 @@ namespace OnlineWallet.UI.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Index()
         {
-            var user = await _userService.GetAsync("user1@aol.com");
+            var user = await _userService.GetAsync(UserId);
 
             return View(user);
         }

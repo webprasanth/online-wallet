@@ -76,13 +76,14 @@ namespace OnlineWallet.UI.Controllers
                 var claims = new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString("N")),
+                    new Claim(ClaimTypes.Name, user.Id.ToString("N")),
                     new Claim(ClaimTypes.Email, user.Email)
                 };
                 var identity = new ClaimsIdentity(claims, "password");
 
                 await HttpContext.Authentication.SignInAsync("Cookie", new ClaimsPrincipal(identity));
 
-                return RedirectToAction("Index","User");
+                return RedirectToAction("Index","Users");
             }
             catch (Exception e)
             {
