@@ -1,11 +1,43 @@
 ﻿@model OnlineWallet.Infrastructure.Dto.UserDto
 
 @{
-    ViewBag.Title = "User's Page";
+    ViewBag.Title = "Your profile";
 }
 
-@Model.Email
-@Model.FullName
-@Model.Address
-@Model.PhoneNumber
-@Model.CreatedAt
+<div class="row">
+    <div class="col-md-6 col-md-offset-1 row">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="col-md-6 col-md-offset-1">
+
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">Full Name</div>
+                <div class="panel-body">@Model.FullName</div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Email</div>
+                <div class="panel-body">@Model.Email</div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Address</div>
+                <div class="panel-body">@Model.Address</div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Account Created</div>
+                <div class="panel-body">@Model.CreatedAt</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-md-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Balance</div>
+            <div class="panel-body">@Model.Account.Balance</div>
+        </div>
+
+    </div>
+</div>
+
+
+
+

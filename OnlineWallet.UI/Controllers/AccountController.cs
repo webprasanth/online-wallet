@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.Authentication;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Services;
 using OnlineWallet.UI.ViewModels;

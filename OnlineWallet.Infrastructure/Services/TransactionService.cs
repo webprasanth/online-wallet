@@ -23,7 +23,7 @@ namespace OnlineWallet.Infrastructure.Services
             }
 
             var userMakingDeposit = await _userRepository.GetAsync(userId);
-            userMakingDeposit.Account.IncreaseBalance(amount);
+            userMakingDeposit.IncreaseBalance(amount);
 
             var deposit = new Deposit(amount, userMakingDeposit);
             await _transactionRepository.AddAsync(deposit);
@@ -38,7 +38,7 @@ namespace OnlineWallet.Infrastructure.Services
 
             var userWithdrawing = await _userRepository.GetAsync(userId);
 
-            userWithdrawing.Account.ReduceBalance(amount);
+            userWithdrawing.ReduceBalance(amount);
 
             var withdrawal = new Withdrawal(amount, userWithdrawing);
             await _transactionRepository.AddAsync(withdrawal);
@@ -54,8 +54,8 @@ namespace OnlineWallet.Infrastructure.Services
             var userMakingTransfer = await _userRepository.GetAsync(userId);
             var userReceivingTransfer = await _userRepository.GetAsync(mailTo);
 
-            userMakingTransfer.Account.ReduceBalance(amount);
-            userReceivingTransfer.Account.IncreaseBalance(amount);
+            userMakingTransfer.ReduceBalance(amount);
+            userReceivingTransfer.IncreaseBalance(amount);
 
             var transfer = new Transfer(amount,userMakingTransfer,userReceivingTransfer);
             await _transactionRepository.AddAsync(transfer);

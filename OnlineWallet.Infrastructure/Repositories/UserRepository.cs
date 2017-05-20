@@ -9,12 +9,7 @@ namespace OnlineWallet.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private static ISet<User> _users = new HashSet<User>
-        {
-                new User("user1@aol.com","password1","Full Name1",236547896,"Some Address"),
-                new User("user2@aol.com","password2","Full Name2",1896,"S Address")
-
-        };
+        private static ISet<User> _users = new HashSet<User>();
 
         public async Task<User> GetAsync(Guid id)
         {
