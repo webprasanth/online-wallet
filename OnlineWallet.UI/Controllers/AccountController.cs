@@ -14,7 +14,6 @@ namespace OnlineWallet.UI.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
-        //private readonly ICommandDispatcher _commandDispatcher;
 
         public AccountController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {

@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using OnlineWallet.Infrastructure.Commands;
-using OnlineWallet.Infrastructure.Commands.User;
+using OnlineWallet.Infrastructure.Commands.Users;
 using OnlineWallet.Infrastructure.Services;
 
-namespace OnlineWallet.Infrastructure.Handlers.User
+namespace OnlineWallet.Infrastructure.Handlers.Users
 {
     public class CreateUserHandler : ICommandHandler<CreateUser>
     {

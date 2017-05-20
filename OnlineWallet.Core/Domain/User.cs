@@ -89,7 +89,7 @@ namespace OnlineWallet.Core.Domain
             else
             {
                 var currentBalance = Account.Balance;
-                Account = NewAccount(currentBalance - value);
+                Account = NewAccount(currentBalance + value);
             }
         }
 

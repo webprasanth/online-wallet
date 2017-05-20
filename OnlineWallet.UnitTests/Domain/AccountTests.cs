@@ -7,11 +7,11 @@ namespace OnlineWallet.UnitTests.Domain
 {
     public class AccountTests
     {
-        private readonly Account _account;
+        private readonly User _user;
 
         public AccountTests()
         {
-            _account = Account.NewAccount();
+            _user = new User("mail@mail.com","password","Full Name");
         }
 
         [Theory]
@@ -20,9 +20,9 @@ namespace OnlineWallet.UnitTests.Domain
         [InlineData(213)]
         public void Balance_should_be_equal_to_(decimal value)
         {
-            _account.IncreaseBalance(value);
+            _user.IncreaseBalance(value);
 
-            _account.Balance.ShouldBeEquivalentTo(value);
+            _user.Account.Balance.ShouldBeEquivalentTo(value);
 
         }
 
@@ -32,7 +32,7 @@ namespace OnlineWallet.UnitTests.Domain
         [InlineData(213)]
         public void IncreaseBalance_shouldnt_throw_exception_with_given_positive_values(decimal value)
         {
-           var exception = Record.Exception(() => _account.IncreaseBalance(value));
+           var exception = Record.Exception(() => _user.IncreaseBalance(value));
 
             exception.Should().BeNull();
         }
@@ -45,7 +45,7 @@ namespace OnlineWallet.UnitTests.Domain
         public void IncreaseBalance_should_throw_exception_with_given_non_positive_values(decimal value)
         {
 
-            var exception = Record.Exception(() => _account.IncreaseBalance(value));
+            var exception = Record.Exception(() => _user.IncreaseBalance(value));
 
             exception.Should().BeOfType<InvalidOperationException>();
         }
@@ -56,9 +56,9 @@ namespace OnlineWallet.UnitTests.Domain
         [InlineData(213)]
         public void ReduceBalance_shouldnt_throw_exception_with_given_positive_sufficient_values(decimal value)
         {
-            _account.IncreaseBalance(1000);
+            _user.IncreaseBalance(1000);
 
-            var exception = Record.Exception(() => _account.ReduceBalance(value));
+            var exception = Record.Exception(() => _user.ReduceBalance(value));
 
             exception.Should().BeNull();
         }
@@ -73,9 +73,9 @@ namespace OnlineWallet.UnitTests.Domain
         [InlineData(-4.4)]
         public void ReduceBalance_should_throw_exception_with_given_exceeded_and_non_positive_values(decimal value)
         {
-            _account.IncreaseBalance(5);
+            _user.IncreaseBalance(5);
 
-            var exception = Record.Exception(() => _account.ReduceBalance(value));
+            var exception = Record.Exception(() => _user.ReduceBalance(value));
 
             exception.Should().BeOfType<InvalidOperationException>();
         }
