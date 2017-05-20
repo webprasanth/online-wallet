@@ -21,7 +21,10 @@
                     <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
                     @if ( User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-controller="Users" asp-action="Index">User</a></li>
+                        <li><a asp-controller="Users" asp-action="Index">Profile</a></li>
+                        <li><a asp-controller="Transactions" asp-action="Deposit">Deposit</a></li>
+                        <li><a asp-controller="Transactions" asp-action="Transfer">Transfer</a></li>
+                        <li><a asp-controller="Transactions" asp-action="Withdraw">Withdraw</a></li>
                     }
                     
                 </ul>

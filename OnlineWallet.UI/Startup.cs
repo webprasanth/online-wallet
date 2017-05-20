@@ -28,6 +28,10 @@ namespace OnlineWallet.UI
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<ITransactionService, TransactionService>();
+
             services.AddSingleton(AutoMapperConfig.Initialize());
 
             services.AddAuthorization();

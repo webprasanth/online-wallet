@@ -1,0 +1,33 @@
+﻿@model OnlineWallet.Infrastructure.Commands.Transactions.Deposit
+@{
+    ViewBag.Title = "Deposit";
+}
+@section scripts
+{
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form asp-action="Deposit" class="form-horizontal">
+            <fieldset>
+                <legend>@ViewBag.Title</legend>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Amount" class="col-md-3 control-label">Amount</label>
+                    <div class="col-md-6">
+                        <input asp-for="Amount" type="text" id="amount" class="form-control" placeholder="Amount" style="cursor: auto;" autocomplete="off">
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-3">
+                        <button type="submit" class="btn btn-lg btn-primary">Deposit</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
