@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\lib\js\script.js" />
     <Content Include="wwwroot\lib\js\sign-up-validation.js" />
   </ItemGroup>
 

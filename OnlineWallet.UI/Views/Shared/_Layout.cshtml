@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - Online Wallet</title>
 
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootswatch/superhero/bootstrap.css" />
 </head>
@@ -18,7 +19,7 @@
 
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                     @if ( User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="Users" asp-action="Index">Profile</a></li>
@@ -47,7 +48,9 @@
 <div>
     @RenderBody()
 </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/js/script.js"></script>
     @RenderSection("scripts",false)
 </body>
 </html>
