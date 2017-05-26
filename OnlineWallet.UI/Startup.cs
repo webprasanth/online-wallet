@@ -70,6 +70,8 @@ namespace OnlineWallet.UI
                 AutomaticChallenge = true
             });
 
+            app.UseExceptionHandler();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
