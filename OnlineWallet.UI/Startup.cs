@@ -12,6 +12,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using OnlineWallet.Infrastructure.IoC.Modules;
+using OnlineWallet.UI.Framework;
 
 namespace OnlineWallet.UI
 {
@@ -58,6 +59,8 @@ namespace OnlineWallet.UI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCustomExceptionHandler();
+
             app.UseStaticFiles();
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
@@ -70,7 +73,6 @@ namespace OnlineWallet.UI
                 AutomaticChallenge = true
             });
 
-            app.UseExceptionHandler();
 
             app.UseMvc(routes =>
             {

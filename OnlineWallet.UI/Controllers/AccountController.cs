@@ -37,15 +37,10 @@ namespace OnlineWallet.UI.Controllers
                 return RedirectToAction("Register");
             }
 
-            try
-            {
-                await _userService.RegisterAsync(viewModel.Email, viewModel.Password, viewModel.FullName);
-                return RedirectToAction("Login");
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("Index","Home");
-            }
+
+            await _userService.RegisterAsync(viewModel.Email, viewModel.Password, viewModel.FullName);
+            return RedirectToAction("Login");
+
 
         }
 
@@ -81,11 +76,10 @@ namespace OnlineWallet.UI.Controllers
 
                 await HttpContext.Authentication.SignInAsync("Cookie", new ClaimsPrincipal(identity));
 
-                return RedirectToAction("Index","Users");
+                return RedirectToAction("Index", "Users");
             }
             catch (Exception e)
             {
-
                 return RedirectToAction("Login");
             }
         }

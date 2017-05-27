@@ -5,6 +5,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using jQWidgets.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 
 namespace OnlineWallet.UI.Framework
@@ -30,9 +31,9 @@ namespace OnlineWallet.UI.Framework
             }
         }
 
-        private static Task HandleAsync(HttpContext context,Exception exception)
+        private static async Task HandleAsync(HttpContext context,Exception exception)
         {
-            var errorCode = "error";
+            var errorCode = "Error";
             var statusCode = HttpStatusCode.BadRequest;
             var exceptionType = exception.GetType();
 
@@ -42,20 +43,25 @@ namespace OnlineWallet.UI.Framework
                     statusCode = HttpStatusCode.Unauthorized;
                     break;
 
-                //TO DO: own Exceptions
+                case Exception e when exceptionType == typeof(InvalidOperationException):
+                    statusCode = HttpStatusCode.TemporaryRedirect;
+                    break;
+
+                case Exception e when exceptionType == typeof(ArgumentNullException):
+                    statusCode = HttpStatusCode.Forbidden;
+                    break;
+
+                //TO DO: more Exceptions
 
                 default:
                     statusCode = HttpStatusCode.InternalServerError;
                     break;
             }
 
-            var response = new {code = errorCode, message = exception.Message};
-            var payload = JsonConvert.SerializeObject(response);
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int) statusCode;
-
-            return context.Response.WriteAsync(payload);
-
+            context.Response.ContentType = "text/plain";
+            context.Response.StatusCode = (int)statusCode;
+            var response = $"{errorCode} {context.Response.StatusCode}\n{exception.Message}\n";
+            await context.Response.WriteAsync(response);
         }
     }
 }
