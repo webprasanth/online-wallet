@@ -28,12 +28,6 @@ namespace OnlineWallet.Infrastructure.Repositories
             await Task.CompletedTask;
         }
 
-        public async Task UpdateAsync(Transaction transaction)
-        {
-            //TO DO
-            await Task.CompletedTask;
-        }
-
         public async Task RemoveAsync(Guid id)
         {
             var transaction = await GetAsync(id);

@@ -15,8 +15,6 @@ namespace OnlineWallet.Core.Repositories
 
         Task AddAsync(Transaction transaction);
 
-        Task UpdateAsync(Transaction transaction);
-
         Task RemoveAsync(Guid id);
     }
 }

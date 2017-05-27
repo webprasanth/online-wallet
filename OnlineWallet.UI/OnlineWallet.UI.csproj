@@ -6,7 +6,7 @@
     <AssemblyName>OnlineWallet.UI</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>OnlineWallet.UI</PackageId>
-    <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
+    <RuntimeFrameworkVersion>1.1.2</RuntimeFrameworkVersion>
     <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
 
@@ -28,7 +28,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.2" />
@@ -36,7 +36,7 @@
     <PackageReference Include="jQWidgets.AspNetCore.Mvc.TagHelpers" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0-preview1-final" />
     <PackageReference Include="AutoMapper" Version="6.0.2" />
-    <PackageReference Include="Autofac" Version="4.5.0" />
+    <PackageReference Include="Autofac" Version="4.6.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.1.0" />
   </ItemGroup>
 
