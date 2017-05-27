@@ -2,36 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using OnlineWallet.Core.Domain;
 using OnlineWallet.Core.Repositories;
+using OnlineWallet.Infrastructure.Data;
 
 namespace OnlineWallet.Infrastructure.Repositories
 {
     public class TransactionRepository : ITransactionRepository
     {
-        private static ISet<Transaction> _transactions = new HashSet<Transaction>();
-
-        public async Task<Transaction> GetAsync(Guid id)
+        public TransactionRepository(OnlineWalletContext context)
         {
-            return await Task.FromResult(_transactions.SingleOrDefault(t => t.Id == id));
+            Context = context;
         }
 
+        public async Task<Transaction> GetAsync(Guid id)
+            => await Context.Transactions.FindAsync(id);
+
         public async Task<IEnumerable<Transaction>> GetAllAsync()
-            => await Task.FromResult(_transactions);
+            => await Context.Transactions.ToListAsync();
 
         public async Task<IEnumerable<Transaction>> GetAllAsync(Guid userId)
-           => await Task.FromResult(_transactions.Where(t => t.UserFrom.Id == userId ));
+            => await Context.Transactions.Where(t => t.UserFrom.Id == userId).ToListAsync();
 
         public async Task AddAsync(Transaction transaction)
         {
-            _transactions.Add(transaction);
-            await Task.CompletedTask;
+           await Context.Transactions.AddAsync(transaction);
         }
 
         public async Task RemoveAsync(Guid id)
         {
-            var transaction = await GetAsync(id);
-           await Task.FromResult(_transactions.Remove(transaction));
+            var transaction = await Context.Transactions.FindAsync(id);
+            Context.Transactions.Remove(transaction);
         }
+
+        public OnlineWalletContext Context { get; }
     }
 }

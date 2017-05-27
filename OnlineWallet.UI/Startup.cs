@@ -11,6 +11,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using OnlineWallet.Infrastructure.Data;
 using OnlineWallet.Infrastructure.IoC.Modules;
 using OnlineWallet.UI.Framework;
 
@@ -27,11 +28,13 @@ namespace OnlineWallet.UI
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRepository, InMemoryUserRepository>();
             services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<ITransactionRepository, InMemoryTransactionRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
+
+            services.AddDbContext<OnlineWalletContext>();
 
             services.AddSingleton(AutoMapperConfig.Initialize());
 
