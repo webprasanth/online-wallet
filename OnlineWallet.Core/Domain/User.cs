@@ -9,7 +9,7 @@ namespace OnlineWallet.Core.Domain
         {
         }
 
-        public User(string email, string password, string fullName, int phoneNumber = 0, string address = "")
+        public User(string email, string password, string fullName, int? phoneNumber = null, string address = "")
         {
             Id = Guid.NewGuid();
             Email = email.ToLowerInvariant();
@@ -29,7 +29,7 @@ namespace OnlineWallet.Core.Domain
 
         public string FullName { get; protected set; }
 
-        public int PhoneNumber { get; protected set; }
+        public int? PhoneNumber { get; protected set; }
 
         public DateTime CreatedAt { get; protected set; }
 

@@ -10,6 +10,7 @@ using OnlineWallet.Infrastructure.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using OnlineWallet.Infrastructure.Data;
 using OnlineWallet.Infrastructure.IoC.Modules;
@@ -34,7 +35,9 @@ namespace OnlineWallet.UI
             services.AddScoped<ITransactionRepository, InMemoryTransactionRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
 
-            services.AddDbContext<OnlineWalletContext>();
+
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=OWDb;Trusted_Connection=True;";
+            services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(connection));
 
             services.AddSingleton(AutoMapperConfig.Initialize());
 
