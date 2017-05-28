@@ -5,7 +5,7 @@ namespace OnlineWallet.Infrastructure.Data
 {
     public class OnlineWalletContext : DbContext
     {
-        public OnlineWalletContext()
+        public OnlineWalletContext(DbContextOptions<OnlineWalletContext> options) : base(options)
         {
         }
 
@@ -37,6 +37,7 @@ namespace OnlineWallet.Infrastructure.Data
             modelBuilder.Entity<Deposit>();
             modelBuilder.Entity<Withdrawal>();
             modelBuilder.Entity<Transfer>();
+            modelBuilder.Entity<Account>();
 
             #endregion
 
