@@ -32,14 +32,17 @@ namespace OnlineWallet.Infrastructure.Repositories
         public async Task AddAsync(User user)
         {
             await Context.Users.AddAsync(user);
+
         }
 
         public async Task RemoveAsync(Guid id)
         {
             var user = await Context.Users.FindAsync(id);
             Context.Users.Remove(user);
+
         }
 
         public OnlineWalletContext Context { get; }
+
     }
 }

@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
+using OnlineWallet.Core;
 using OnlineWallet.Core.Domain;
-using OnlineWallet.Core.Repositories;
 
 namespace OnlineWallet.Infrastructure.Services
 {
     public class TransactionService : ITransactionService
     {
-        private readonly ITransactionRepository _transactionRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public TransactionService(ITransactionRepository transactionRepository, IUserRepository userRepository)
+        public TransactionService(IUnitOfWork unitOfWork)
         {
-            _transactionRepository = transactionRepository;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task DepositAsync(decimal amount,Guid userId)
         {
@@ -22,11 +20,12 @@ namespace OnlineWallet.Infrastructure.Services
                 throw new ArgumentException("amount of deposit must be greater than 0.");
             }
 
-            var userMakingDeposit = await _userRepository.GetAsync(userId);
+            var userMakingDeposit = await _unitOfWork.Users.GetAsync(userId);
             userMakingDeposit.IncreaseBalance(amount);
 
             var deposit = new Deposit(amount, userMakingDeposit);
-            await _transactionRepository.AddAsync(deposit);
+            await _unitOfWork.Transactions.AddAsync(deposit);
+            _unitOfWork.Save();
         }
 
         public async Task WithdrawAsync(decimal amount, Guid userId)
@@ -36,12 +35,13 @@ namespace OnlineWallet.Infrastructure.Services
                 throw new ArgumentException("amount of withdrawal must be greater than 0.");
             }
 
-            var userWithdrawing = await _userRepository.GetAsync(userId);
+            var userWithdrawing = await _unitOfWork.Users.GetAsync(userId);
 
             userWithdrawing.ReduceBalance(amount);
 
             var withdrawal = new Withdrawal(amount, userWithdrawing);
-            await _transactionRepository.AddAsync(withdrawal);
+            await _unitOfWork.Transactions.AddAsync(withdrawal);
+            _unitOfWork.Save();
         }
 
         public async Task TransferAsync(decimal amount, Guid userId, string mailTo)
@@ -51,14 +51,15 @@ namespace OnlineWallet.Infrastructure.Services
                 throw new ArgumentException("amount of transfer must be greater than 0.");
             }
 
-            var userMakingTransfer = await _userRepository.GetAsync(userId);
-            var userReceivingTransfer = await _userRepository.GetAsync(mailTo);
+            var userMakingTransfer = await _unitOfWork.Users.GetAsync(userId);
+            var userReceivingTransfer = await _unitOfWork.Users.GetAsync(mailTo);
 
             userMakingTransfer.ReduceBalance(amount);
             userReceivingTransfer.IncreaseBalance(amount);
 
             var transfer = new Transfer(amount,userMakingTransfer,userReceivingTransfer);
-            await _transactionRepository.AddAsync(transfer);
+            await _unitOfWork.Transactions.AddAsync(transfer);
+            _unitOfWork.Save();
         }
     }
 }

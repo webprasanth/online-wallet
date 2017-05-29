@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using OnlineWallet.Core;
 using OnlineWallet.Core.Domain;
-using OnlineWallet.Core.Repositories;
 using OnlineWallet.Infrastructure.Dto;
 
 namespace OnlineWallet.Infrastructure.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _userRepository = userRepository;
+
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task RegisterAsync(string email, string password, string fullName)
         {
-            var user = await _userRepository.GetAsync(email);
-
+            var user = await _unitOfWork.Users.GetAsync(email);
+            
             if (user != null)
             {
                 throw new InvalidOperationException("User with such email already exists");
@@ -29,12 +30,13 @@ namespace OnlineWallet.Infrastructure.Services
 
             user = new User(email,password,fullName);
 
-            await _userRepository.AddAsync(user);
+            await _unitOfWork.Users.AddAsync(user);
+            _unitOfWork.Save();
         }
 
         public async Task LoginAsync(string email, string password)
         {
-            var user = await _userRepository.GetAsync(email);
+            var user = await _unitOfWork.Users.GetAsync(email);
 
             if (user == null)
             {
@@ -49,14 +51,14 @@ namespace OnlineWallet.Infrastructure.Services
 
         public async Task<UserDto> GetAsync(string mail)
         {
-            var user = await _userRepository.GetAsync(mail);
+            var user = await _unitOfWork.Users.GetAsync(mail);
 
             return _mapper.Map<User, UserDto>(user);
         }
 
         public async Task<UserDto> GetAsync(Guid id)
         {
-            var user = await _userRepository.GetAsync(id);
+            var user = await _unitOfWork.Users.GetAsync(id);
 
             return _mapper.Map<User, UserDto>(user);
         }

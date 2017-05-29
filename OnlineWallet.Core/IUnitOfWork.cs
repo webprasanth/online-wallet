@@ -8,7 +8,7 @@ namespace OnlineWallet.Core
         IUserRepository Users { get; }
         ITransactionRepository Transactions { get; }
 
-        int Complete();
+        int Save();
 
     }
 }

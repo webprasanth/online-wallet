@@ -37,10 +37,9 @@ namespace OnlineWallet.Infrastructure.Data
             modelBuilder.Entity<Deposit>();
             modelBuilder.Entity<Withdrawal>();
             modelBuilder.Entity<Transfer>();
-            modelBuilder.Entity<Account>();
-
             #endregion
 
+            modelBuilder.Entity<Account>();
         }
 
     }

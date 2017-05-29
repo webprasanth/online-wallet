@@ -22,7 +22,7 @@ namespace OnlineWallet.Infrastructure.Data
 
         public IUserRepository Users { get; }
         public ITransactionRepository Transactions { get; }
-        public int Complete()
+        public int Save()
         {
            return _context.SaveChanges();
         }

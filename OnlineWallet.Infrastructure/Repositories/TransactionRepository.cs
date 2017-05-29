@@ -37,5 +37,6 @@ namespace OnlineWallet.Infrastructure.Repositories
         }
 
         public OnlineWalletContext Context { get; }
+
     }
 }

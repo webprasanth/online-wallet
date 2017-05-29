@@ -18,7 +18,7 @@ namespace OnlineWallet.Core.Domain
             PhoneNumber = phoneNumber;
             CreatedAt = DateTime.UtcNow;
             Address = address;
-            Account = NewAccount(0);
+            Account =  new Account(0);
         }
 
         public Guid Id { get; protected set; }
@@ -88,25 +88,23 @@ namespace OnlineWallet.Core.Domain
             }
             else
             {
-                var currentBalance = Account.Balance;
-                Account = NewAccount(currentBalance + value);
+                Account.SetBalance(Account.Balance+value);
             }
         }
 
         public void ReduceBalance(decimal value)
         {
-            var currentBalance = Account.Balance;
             if (value <= 0)
             {
                 throw new InvalidOperationException("Cannot reduce non positive value");
             }
-            else if (value > currentBalance)
+            else if (value > Account.Balance)
             {
                 throw new InvalidOperationException("Insuficient funds");
             }
             else
             {
-                Account = NewAccount(currentBalance - value);
+                Account.SetBalance(Account.Balance - value);
             }
         }
 
