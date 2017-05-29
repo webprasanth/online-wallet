@@ -17,7 +17,7 @@ namespace OnlineWallet.Infrastructure.Repositories
         }
 
         public async Task<Transaction> GetAsync(Guid id)
-            => await Context.Transactions.FindAsync(id);
+            => await Context.Transactions.SingleOrDefaultAsync(t => t.Id == id);
 
         public async Task<IEnumerable<Transaction>> GetAllAsync()
             => await Context.Transactions.ToListAsync();
@@ -32,7 +32,7 @@ namespace OnlineWallet.Infrastructure.Repositories
 
         public async Task RemoveAsync(Guid id)
         {
-            var transaction = await Context.Transactions.FindAsync(id);
+            var transaction = await Context.Transactions.SingleOrDefaultAsync(t => t.Id == id);
             Context.Transactions.Remove(transaction);
         }
 

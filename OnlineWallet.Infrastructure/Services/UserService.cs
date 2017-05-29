@@ -14,7 +14,6 @@ namespace OnlineWallet.Infrastructure.Services
 
         public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
@@ -59,8 +58,7 @@ namespace OnlineWallet.Infrastructure.Services
         public async Task<UserDto> GetAsync(Guid id)
         {
             var user = await _unitOfWork.Users.GetAsync(id);
-
-            return _mapper.Map<User, UserDto>(user);
+            return _mapper.Map<UserDto>(user);
         }
 
     }

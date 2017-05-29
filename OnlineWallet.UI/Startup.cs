@@ -66,8 +66,11 @@ namespace OnlineWallet.UI
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseCustomExceptionHandler();
+            else
+            {
+                app.UseCustomExceptionHandler();
+            }
+            
 
             app.UseStaticFiles();
 
