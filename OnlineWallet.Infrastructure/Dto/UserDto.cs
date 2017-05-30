@@ -1,5 +1,4 @@
 ﻿using System;
-using OnlineWallet.Core.Domain;
 
 namespace OnlineWallet.Infrastructure.Dto
 {
@@ -17,7 +16,6 @@ namespace OnlineWallet.Infrastructure.Dto
 
         public string Address { get; set; }
 
-        public Account Account { get; set; }
         public decimal Balance { get; set; }
     }
 }

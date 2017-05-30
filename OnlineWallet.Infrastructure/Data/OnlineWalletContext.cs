@@ -38,8 +38,6 @@ namespace OnlineWallet.Infrastructure.Data
             modelBuilder.Entity<Withdrawal>();
             modelBuilder.Entity<Transfer>();
             #endregion
-
-            modelBuilder.Entity<Account>();
         }
 
     }

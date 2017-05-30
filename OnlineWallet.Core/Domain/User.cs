@@ -1,5 +1,4 @@
 ﻿using System;
-using static OnlineWallet.Core.Domain.Account;
 
 namespace OnlineWallet.Core.Domain
 {
@@ -18,7 +17,7 @@ namespace OnlineWallet.Core.Domain
             PhoneNumber = phoneNumber;
             CreatedAt = DateTime.UtcNow;
             Address = address;
-            Account =  new Account(0);
+            SetBalance(0);
         }
 
         public Guid Id { get; protected set; }
@@ -35,7 +34,7 @@ namespace OnlineWallet.Core.Domain
 
         public string Address { get; protected set; }
 
-        public Account Account { get; protected set; }
+        public decimal Balance { get; protected set; }
 
 
         public void SetEmail(string email)
@@ -80,6 +79,18 @@ namespace OnlineWallet.Core.Domain
 
         }
 
+        private void SetBalance(decimal value)
+        {
+            if (value < 0)
+            {
+                throw new InvalidOperationException("Cannot set balance to negative");
+            }
+            else
+            {
+                Balance = value;
+            }
+        }
+
         public void IncreaseBalance(decimal value)
         {
             if (value <= 0)
@@ -88,7 +99,7 @@ namespace OnlineWallet.Core.Domain
             }
             else
             {
-                Account.SetBalance(Account.Balance+value);
+                SetBalance(Balance+value);
             }
         }
 
@@ -98,13 +109,13 @@ namespace OnlineWallet.Core.Domain
             {
                 throw new InvalidOperationException("Cannot reduce non positive value");
             }
-            else if (value > Account.Balance)
+            else if (value > Balance)
             {
                 throw new InvalidOperationException("Insuficient funds");
             }
             else
             {
-                Account.SetBalance(Account.Balance - value);
+                SetBalance(Balance - value);
             }
         }
 

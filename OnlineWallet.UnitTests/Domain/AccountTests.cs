@@ -22,7 +22,7 @@ namespace OnlineWallet.UnitTests.Domain
         {
             _user.IncreaseBalance(value);
 
-            _user.Account.Balance.ShouldBeEquivalentTo(value);
+            _user.Balance.ShouldBeEquivalentTo(value);
 
         }
 

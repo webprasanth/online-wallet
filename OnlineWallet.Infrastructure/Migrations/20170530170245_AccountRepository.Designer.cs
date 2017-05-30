@@ -8,13 +8,26 @@ using OnlineWallet.Infrastructure.Data;
 namespace OnlineWallet.Infrastructure.Migrations
 {
     [DbContext(typeof(OnlineWalletContext))]
-    partial class OnlineWalletContextModelSnapshot : ModelSnapshot
+    [Migration("20170530170245_AccountRepository")]
+    partial class AccountRepository
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("OnlineWallet.Core.Domain.Account", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("Balance");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Accounts");
+                });
 
             modelBuilder.Entity("OnlineWallet.Core.Domain.Transaction", b =>
                 {
@@ -45,9 +58,9 @@ namespace OnlineWallet.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
+                    b.Property<Guid?>("AccountId");
 
-                    b.Property<decimal>("Balance");
+                    b.Property<string>("Address");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -66,6 +79,8 @@ namespace OnlineWallet.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasAlternateKey("Email");
+
+                    b.HasIndex("AccountId");
 
                     b.ToTable("Users");
                 });
@@ -108,6 +123,13 @@ namespace OnlineWallet.Infrastructure.Migrations
                     b.HasOne("OnlineWallet.Core.Domain.User", "UserFrom")
                         .WithMany()
                         .HasForeignKey("UserFromId");
+                });
+
+            modelBuilder.Entity("OnlineWallet.Core.Domain.User", b =>
+                {
+                    b.HasOne("OnlineWallet.Core.Domain.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId");
                 });
 
             modelBuilder.Entity("OnlineWallet.Core.Domain.Transfer", b =>

@@ -8,9 +8,10 @@ using OnlineWallet.Infrastructure.Data;
 namespace OnlineWallet.Infrastructure.Migrations
 {
     [DbContext(typeof(OnlineWalletContext))]
-    partial class OnlineWalletContextModelSnapshot : ModelSnapshot
+    [Migration("20170530171916_noAcc")]
+    partial class noAcc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

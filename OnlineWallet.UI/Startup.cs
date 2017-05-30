@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using OnlineWallet.Core;
+using OnlineWallet.Core.Domain;
 using OnlineWallet.Infrastructure.Data;
 using OnlineWallet.Infrastructure.IoC.Modules;
 using OnlineWallet.UI.Framework;
@@ -35,7 +36,6 @@ namespace OnlineWallet.UI
 
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
-
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=OWDb;Trusted_Connection=True;";
             services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(connection));
