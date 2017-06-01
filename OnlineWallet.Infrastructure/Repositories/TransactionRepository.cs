@@ -22,6 +22,22 @@ namespace OnlineWallet.Infrastructure.Repositories
         public async Task<IEnumerable<Transaction>> GetAllAsync()
             => await Context.Transactions.ToListAsync();
 
+
+        public async Task<IEnumerable<Transfer>> GetAllTransfersAsync(Guid userid)
+        {
+            return await Context.Transactions.OfType<Transfer>().Where(t => t.UserFrom.Id == userid).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Deposit>> GetAllDepositsAsync(Guid userid)
+        {
+            return await Context.Transactions.OfType<Deposit>().Where(t => t.UserFrom.Id == userid).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Withdrawal>> GetAllWithdrawalsAsync(Guid userid)
+        {
+            return await Context.Transactions.OfType<Withdrawal>().Where(t => t.UserFrom.Id == userid).ToListAsync();
+        }
+
         public async Task<IEnumerable<Transaction>> GetAllAsync(Guid userId)
             => await Context.Transactions.Where(t => t.UserFrom.Id == userId).ToListAsync();
 

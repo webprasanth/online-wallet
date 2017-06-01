@@ -12,10 +12,12 @@ namespace OnlineWallet.UI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IUserActivityService _userActivityService;
 
-        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public UsersController(IUserService userService,IUserActivityService userActivityService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _userService = userService;
+            _userActivityService = userActivityService;
         }
 
         // GET: /<controller>/
@@ -24,6 +26,13 @@ namespace OnlineWallet.UI.Controllers
             var user = await _userService.GetAsync(UserId);
 
             return View(user);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Activity()
+        {
+            var transactions = await _userActivityService.GetAllTransactions(UserId);
+            return View(transactions);
         }
     }
 }

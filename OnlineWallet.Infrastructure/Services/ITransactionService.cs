@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using OnlineWallet.Core.Domain;
 
 namespace OnlineWallet.Infrastructure.Services
 {

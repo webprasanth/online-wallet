@@ -1,0 +1,15 @@
+﻿@using OnlineWallet.Infrastructure.Dto
+@model IEnumerable<OnlineWallet.Infrastructure.Dto.TransactionDto>
+@{
+}
+<div>
+    <ul>
+    @{
+        foreach (var transaction in @Model)
+        {
+            <li>@transaction.Amount @transaction.Date</li>
+        }
+
+    }
+    </ul>
+</div>
