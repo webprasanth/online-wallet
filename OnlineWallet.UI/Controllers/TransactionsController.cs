@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.Transactions;
 
@@ -12,6 +13,8 @@ namespace OnlineWallet.UI.Controllers
     [Authorize]
     public class TransactionsController : ControllerBase
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public TransactionsController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
         }
@@ -39,6 +42,7 @@ namespace OnlineWallet.UI.Controllers
             {
                 command.UserId = UserId;
                 await DispatchAsync(command);
+                Logger.Info("Transfer done");
             }
             catch (Exception e)
             {
@@ -63,8 +67,12 @@ namespace OnlineWallet.UI.Controllers
             }
             try
             {
+                Logger.Info("Processing deposit");
+
                 command.UserId = UserId;
                 await DispatchAsync(command);
+
+                Logger.Info("Deposit done");
             }
             catch (Exception e)
             {

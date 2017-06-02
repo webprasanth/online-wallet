@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Services;
 
@@ -11,6 +12,8 @@ namespace OnlineWallet.UI.Controllers
     [Authorize]
     public class UsersController : ControllerBase
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly IUserService _userService;
         private readonly IUserActivityService _userActivityService;
 
@@ -23,6 +26,7 @@ namespace OnlineWallet.UI.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Index()
         {
+            Logger.Info("Fetching User' profile");
             var user = await _userService.GetAsync(UserId);
 
             return View(user);
