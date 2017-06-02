@@ -33,5 +33,20 @@ namespace OnlineWallet.Infrastructure.Repositories
             var transaction = await GetAsync(id);
            await Task.FromResult(_transactions.Remove(transaction));
         }
+
+        public Task<IEnumerable<Transfer>> GetAllTransfersAsync(Guid userid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Deposit>> GetAllDepositsAsync(Guid userid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Withdrawal>> GetAllWithdrawalsAsync(Guid userid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

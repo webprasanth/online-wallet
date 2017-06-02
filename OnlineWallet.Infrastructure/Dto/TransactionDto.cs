@@ -9,13 +9,9 @@ namespace OnlineWallet.Infrastructure.Dto
         public decimal Amount { get; set; }
 
         public DateTime Date { get; set; }
-    }
 
-    public class DepositDto : TransactionDto
-    {
-    }
+        public string Type { get; set; }
 
-    public class WithdrawalDto : TransactionDto
-    {
+        public string UserTo { get; set; }
     }
 }

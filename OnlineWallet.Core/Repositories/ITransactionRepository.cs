@@ -13,6 +13,12 @@ namespace OnlineWallet.Core.Repositories
 
         Task<IEnumerable<Transaction>> GetAllAsync(Guid userId);
 
+        Task<IEnumerable<Transfer>> GetAllTransfersAsync(Guid userid);
+
+        Task<IEnumerable<Deposit>> GetAllDepositsAsync(Guid userid);
+
+        Task<IEnumerable<Withdrawal>> GetAllWithdrawalsAsync(Guid userid);
+
         Task AddAsync(Transaction transaction);
 
         Task RemoveAsync(Guid id);
