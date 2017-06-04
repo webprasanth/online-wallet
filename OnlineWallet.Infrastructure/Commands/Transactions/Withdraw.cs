@@ -8,7 +8,8 @@ namespace OnlineWallet.Infrastructure.Commands.Transactions
         public Guid UserId { get; set; }
 
         [Required]
-        [Range(typeof(decimal), "1", "1000000000000")]
-        public decimal Amount { get; set; }
+        [RegularExpression(@"[0-9]{0,}[,.][0-9]{2}", ErrorMessage = "invalid value")] // decimal with . or ,
+        [Range(1.00,10000000.00)]
+        public string Amount { get; set; }
     }
 }

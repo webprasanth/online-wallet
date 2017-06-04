@@ -16,7 +16,10 @@ namespace OnlineWallet.Infrastructure.Handlers.Transactions
 
         public async Task HandleAsync(Transfer command)
         {
-            await _transactionService.TransferAsync(command.Amount,command.UserId,command.EmailTo);
+            decimal amount;
+            decimal.TryParse(command.Amount.Replace('.', ','), out amount);
+
+            await _transactionService.TransferAsync(amount, command.UserId,command.EmailTo);
         }
     }
 }

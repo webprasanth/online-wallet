@@ -15,7 +15,10 @@ namespace OnlineWallet.Infrastructure.Handlers.Transactions
         }
         public async Task HandleAsync(Withdraw command)
         {
-           await _transactionService.WithdrawAsync(command.Amount, command.UserId);
+            decimal amount;
+            decimal.TryParse(command.Amount.Replace('.', ','), out amount);
+
+            await _transactionService.WithdrawAsync(amount, command.UserId);
         }
     }
 }

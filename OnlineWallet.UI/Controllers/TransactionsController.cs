@@ -73,11 +73,11 @@ namespace OnlineWallet.UI.Controllers
                 await DispatchAsync(command);
 
                 Logger.Info("Deposit done");
-            }
+        }
             catch (Exception e)
             {
                 return RedirectToAction("Deposit");
-            }
+    }
             return RedirectToAction("Index", "Users");
 
         }
@@ -99,11 +99,11 @@ namespace OnlineWallet.UI.Controllers
             {
                 command.UserId = UserId;
                 await DispatchAsync(command);
-            }
+        }
             catch (Exception e)
             {
                 return RedirectToAction("Withdraw");
-            }
+    }
             return RedirectToAction("Index", "Users");
 
         }

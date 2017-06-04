@@ -5,7 +5,7 @@ using OnlineWallet.Infrastructure.Services;
 
 namespace OnlineWallet.Infrastructure.Handlers.Transactions
 {
-   public class DepositHandler : ICommandHandler<Deposit>
+    public class DepositHandler : ICommandHandler<Deposit>
     {
         private readonly ITransactionService _transactionService;
 
@@ -15,7 +15,10 @@ namespace OnlineWallet.Infrastructure.Handlers.Transactions
         }
         public async Task HandleAsync(Deposit command)
         {
-            await _transactionService.DepositAsync(command.Amount, command.UserId);
+            decimal amount;
+            decimal.TryParse(command.Amount.Replace('.', ','), out amount);
+
+            await _transactionService.DepositAsync(amount, command.UserId);
         }
     }
 }
