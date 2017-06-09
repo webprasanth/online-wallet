@@ -7,6 +7,7 @@ using jQWidgets.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
+using OnlineWallet.Infrastructure.Services;
 
 namespace OnlineWallet.UI.Framework
 {
@@ -33,7 +34,7 @@ namespace OnlineWallet.UI.Framework
 
         private static async Task HandleAsync(HttpContext context,Exception exception)
         {
-            var errorCode = "Error";
+            var errorCode = "error";
             var statusCode = HttpStatusCode.BadRequest;
             var exceptionType = exception.GetType();
 
@@ -43,15 +44,9 @@ namespace OnlineWallet.UI.Framework
                     statusCode = HttpStatusCode.Unauthorized;
                     break;
 
-                case Exception e when exceptionType == typeof(InvalidOperationException):
-                    statusCode = HttpStatusCode.TemporaryRedirect;
+                case ServiceException e when exceptionType == typeof(ServiceException):
+                    errorCode = e.Code;
                     break;
-
-                case Exception e when exceptionType == typeof(ArgumentNullException):
-                    statusCode = HttpStatusCode.Forbidden;
-                    break;
-
-                //TO DO: more Exceptions
 
                 default:
                     statusCode = HttpStatusCode.InternalServerError;

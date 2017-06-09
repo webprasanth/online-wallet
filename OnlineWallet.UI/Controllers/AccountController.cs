@@ -62,8 +62,6 @@ namespace OnlineWallet.UI.Controllers
                 return RedirectToAction("Login");
             }
 
-            try
-            {
                 await _userService.LoginAsync(viewModel.Email, viewModel.Password);
                 var user = await _userService.GetAsync(viewModel.Email);
                 var claims = new[]
@@ -77,11 +75,7 @@ namespace OnlineWallet.UI.Controllers
                 await HttpContext.Authentication.SignInAsync("Cookie", new ClaimsPrincipal(identity));
 
                 return RedirectToAction("Index", "Users");
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("Login");
-            }
+
         }
 
         [Authorize]

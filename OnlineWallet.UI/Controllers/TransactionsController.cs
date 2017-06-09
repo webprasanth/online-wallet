@@ -38,16 +38,16 @@ namespace OnlineWallet.UI.Controllers
             {
                 return RedirectToAction("Transfer");
             }
-            try
-            {
+            //try
+            //{
                 command.UserId = UserId;
                 await DispatchAsync(command);
                 Logger.Info("Transfer done");
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("Transfer");
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    return RedirectToAction("Transfer");
+            //}
             return RedirectToAction("Index", "Users");
 
         }
@@ -65,19 +65,19 @@ namespace OnlineWallet.UI.Controllers
             {
                 return RedirectToAction("Deposit");
             }
-            try
-            {
+            //try
+            //{
                 Logger.Info("Processing deposit");
 
                 command.UserId = UserId;
                 await DispatchAsync(command);
 
                 Logger.Info("Deposit done");
-        }
-            catch (Exception e)
-            {
-                return RedirectToAction("Deposit");
-    }
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            return RedirectToAction("Deposit");
+    //        }
             return RedirectToAction("Index", "Users");
 
         }
@@ -95,15 +95,15 @@ namespace OnlineWallet.UI.Controllers
             {
                 return RedirectToAction("Withdraw");
             }
-            try
-            {
+            //try
+            //{
                 command.UserId = UserId;
                 await DispatchAsync(command);
-        }
-            catch (Exception e)
-            {
-                return RedirectToAction("Withdraw");
-    }
+            //}
+            //catch (Exception e)
+            //{
+            //    return RedirectToAction("Withdraw");
+            //}
             return RedirectToAction("Index", "Users");
 
         }

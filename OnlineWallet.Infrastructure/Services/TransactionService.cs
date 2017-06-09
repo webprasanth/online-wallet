@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using OnlineWallet.Core;
 using OnlineWallet.Core.Domain;
+using static OnlineWallet.Infrastructure.ErrorCodes;
+
 
 namespace OnlineWallet.Infrastructure.Services
 {
@@ -17,7 +19,7 @@ namespace OnlineWallet.Infrastructure.Services
         {
             if (amount <= 0)
             {
-                throw new ArgumentException("amount of deposit must be greater than 0.");
+                throw new ServiceException(InvalidValue,"amount of deposit must be greater than 0.");
             }
 
             var userMakingDeposit = await _unitOfWork.Users.GetAsync(userId);
@@ -32,7 +34,7 @@ namespace OnlineWallet.Infrastructure.Services
         {
             if (amount <= 0)
             {
-                throw new ArgumentException("amount of withdrawal must be greater than 0.");
+                throw new ServiceException(InvalidValue, "amount of withdrawal must be greater than 0.");
             }
 
             var userWithdrawing = await _unitOfWork.Users.GetAsync(userId);
@@ -48,7 +50,7 @@ namespace OnlineWallet.Infrastructure.Services
         {
             if (amount <= 0)
             {
-                throw new ArgumentException("amount of transfer must be greater than 0.");
+                throw new ServiceException(InvalidValue, "amount of transfer must be greater than 0.");
             }
 
             var userMakingTransfer = await _unitOfWork.Users.GetAsync(userId);

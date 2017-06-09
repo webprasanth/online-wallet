@@ -4,6 +4,7 @@ using AutoMapper;
 using OnlineWallet.Core;
 using OnlineWallet.Core.Domain;
 using OnlineWallet.Infrastructure.Dto;
+using static OnlineWallet.Infrastructure.ErrorCodes;
 
 namespace OnlineWallet.Infrastructure.Services
 {
@@ -24,7 +25,7 @@ namespace OnlineWallet.Infrastructure.Services
             
             if (user != null)
             {
-                throw new InvalidOperationException("User with such email already exists");
+                throw new ServiceException(EmailInUse,"User with such email already exists");
             }
 
             user = new User(email,password,fullName);
@@ -39,12 +40,12 @@ namespace OnlineWallet.Infrastructure.Services
 
             if (user == null)
             {
-                throw new InvalidOperationException("User not found");
+                throw new ServiceException(UserNotFound,"User not found");
             }
 
             if (!user.ValidatePassword(password))
             {
-                throw new InvalidOperationException("Invalid credentials.");
+                throw new ServiceException(InvalidCredentials,"Invalid credentials.");
             }
         }
 

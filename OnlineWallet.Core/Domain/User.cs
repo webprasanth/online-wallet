@@ -1,4 +1,5 @@
 ﻿using System;
+using static OnlineWallet.Core.Domain.ErrorCodes;
 
 namespace OnlineWallet.Core.Domain
 {
@@ -41,7 +42,7 @@ namespace OnlineWallet.Core.Domain
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new Exception("Email cannot be empty.");
+                throw new DomainException(InvalidEmail, "Email cannot be empty.");
             }
             if (Email == email)
             {
@@ -60,15 +61,15 @@ namespace OnlineWallet.Core.Domain
         {
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException("Password cannot be empty");
+                throw new DomainException(InvalidPassword,"Password cannot be empty");
             }
             if (password.Length < 6)
             {
-                throw new Exception("Password must contain at least 6 characters.");
+                throw new DomainException(InvalidPassword, "Password must contain at least 6 characters.");
             }
             if (password.Length > 32)
             {
-                throw new Exception("Password can not contain more than 32 characters.");
+                throw new DomainException(InvalidPassword, "Password can not contain more than 32 characters.");
             }
             if (Password == password)
             {
@@ -83,7 +84,7 @@ namespace OnlineWallet.Core.Domain
         {
             if (value < 0)
             {
-                throw new InvalidOperationException("Cannot set balance to negative");
+                throw new DomainException(InvalidBalance,"Cannot set balance to negative");
             }
             else
             {
@@ -95,7 +96,7 @@ namespace OnlineWallet.Core.Domain
         {
             if (value <= 0)
             {
-                throw new InvalidOperationException("Cannot increase with non positive value");
+                throw new DomainException(InvalidBalance, "Cannot increase with non positive value");
             }
             else
             {
@@ -107,11 +108,11 @@ namespace OnlineWallet.Core.Domain
         {
             if (value <= 0)
             {
-                throw new InvalidOperationException("Cannot reduce non positive value");
+                throw new DomainException(InvalidBalance, "Cannot reduce non positive value");
             }
             else if (value > Balance)
             {
-                throw new InvalidOperationException("Insuficient funds");
+                throw new DomainException(InvalidBalance, "Insuficient funds");
             }
             else
             {
