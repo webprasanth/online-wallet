@@ -53,8 +53,14 @@ namespace OnlineWallet.Infrastructure.Services
                 throw new ServiceException(InvalidValue, "amount of transfer must be greater than 0.");
             }
 
-            var userMakingTransfer = await _unitOfWork.Users.GetAsync(userId); // TO DO: add validation
             var userReceivingTransfer = await _unitOfWork.Users.GetAsync(mailTo);
+
+            if (userReceivingTransfer == null)
+            {
+                throw new ServiceException(UserNotFound, "user of given email does not exists.");
+            }
+
+            var userMakingTransfer = await _unitOfWork.Users.GetAsync(userId);
 
             userMakingTransfer.ReduceBalance(amount);
             userReceivingTransfer.IncreaseBalance(amount);

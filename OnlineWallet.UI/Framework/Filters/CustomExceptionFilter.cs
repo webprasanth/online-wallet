@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using NLog;
 
 namespace OnlineWallet.UI.Framework.Filters
 {
@@ -11,6 +12,7 @@ namespace OnlineWallet.UI.Framework.Filters
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IModelMetadataProvider _modelMetadataProvider;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public CustomExceptionFilter( IHostingEnvironment hostingEnvironment, IModelMetadataProvider modelMetadataProvider)
         {
@@ -20,6 +22,7 @@ namespace OnlineWallet.UI.Framework.Filters
 
         public override void OnException(ExceptionContext context)
         {
+            Logger.Error(context.Exception);
             if (context.ExceptionHandled)
             {
                 return;
