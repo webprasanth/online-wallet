@@ -18,6 +18,7 @@ using OnlineWallet.Core;
 using OnlineWallet.Infrastructure.Data;
 using OnlineWallet.Infrastructure.IoC.Modules;
 using OnlineWallet.UI.Framework;
+using OnlineWallet.UI.Framework.Filters;
 
 namespace OnlineWallet.UI
 {
@@ -47,7 +48,7 @@ namespace OnlineWallet.UI
 
             services.AddAuthorization();
 
-            services.AddMvc();
+            services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilter)));
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -73,7 +74,7 @@ namespace OnlineWallet.UI
             }
             else
             {
-                app.UseCustomExceptionHandler();
+                //app.UseCustomExceptionHandler();
             }
             
 

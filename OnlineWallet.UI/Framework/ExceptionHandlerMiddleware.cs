@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Linq.Expressions;
 using System.Net;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
-using jQWidgets.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Newtonsoft.Json;
 using OnlineWallet.Infrastructure.Services;
 
 namespace OnlineWallet.UI.Framework
