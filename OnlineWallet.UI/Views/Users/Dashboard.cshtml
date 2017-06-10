@@ -1,0 +1,18 @@
+﻿@model OnlineWallet.Infrastructure.Dto.TransactionDto
+
+@section scripts
+{
+    <script src="~/lib/chart.js/dist/Chart.min.js"></script>
+    <script src="~/lib/js/charts.js"></script>
+    <script src="~/lib/js/dashboard.js"></script>
+}
+
+<div class="col-md-11 col-md-offset-1">
+    <div class="col-md-5">
+        <canvas id="tdwChart"></canvas>
+        </div>
+        <div class="col-md-5 col-md-offset-1">
+        <canvas id="ioChart"></canvas>
+    </div>
+
+</div>

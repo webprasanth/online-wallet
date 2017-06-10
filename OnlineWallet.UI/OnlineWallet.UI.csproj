@@ -11,7 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\lib\js\charts.js" />
     <Content Include="wwwroot\lib\js\script.js" />
+    <Content Include="wwwroot\lib\js\dashboard.js" />
   </ItemGroup>
 
   <ItemGroup>

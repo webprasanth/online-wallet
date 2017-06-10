@@ -40,5 +40,11 @@ namespace OnlineWallet.UI.Controllers
             var transactions = await _userActivityService.GetAllTransactions(UserId);
             return View(transactions);
         }
+
+        [HttpGet]
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
     }
 }
