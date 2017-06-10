@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - Online Wallet</title>
 
-
+    <link href="~/lib/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootswatch/superhero/bootstrap.css" />
 </head>
@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    @if ( User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="Users" asp-action="Index">Profile</a></li>
                         <li><a asp-controller="Users" asp-action="Activity">Transactions</a></li>
@@ -29,7 +29,7 @@
                         <li><a asp-controller="Transactions" asp-action="Transfer">Transfer</a></li>
                         <li><a asp-controller="Transactions" asp-action="Withdraw">Withdraw</a></li>
                     }
-                    
+
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -47,12 +47,19 @@
         </div>
     </nav>
 
-<div>
-    @RenderBody()
-</div>
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <a href="https://github.com/bartMoskala/online-wallet"><span class="text-info">GitHub</span></a>
+        </div>
+    </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="~/lib/js/script.js"></script>
-    @RenderSection("scripts",false)
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/js/script.js"></script>
+    @RenderSection("scripts", false)
 </body>
 </html>

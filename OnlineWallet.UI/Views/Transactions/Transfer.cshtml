@@ -8,32 +8,30 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 }
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <form asp-action="Transfer" class="form-horizontal">
-            <fieldset>
-                <legend>@ViewBag.Title</legend>
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="EmailTo" class="col-md-3 control-label">Email</label>
-                    <div class="col-md-6">
-                        <input asp-for="EmailTo" type="email" class="form-control" placeholder="Email" style=" cursor: auto;" autocomplete="off">
-                        <span asp-validation-for="EmailTo" class="text-danger"></span>
-                    </div>
+<div class="col-md-6 col-md-offset-3">
+    <form asp-action="Transfer" class="form-horizontal">
+        <fieldset>
+            <legend>@ViewBag.Title</legend>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmailTo" class="col-md-3 control-label">Email</label>
+                <div class="col-md-6">
+                    <input asp-for="EmailTo" type="email" class="form-control" placeholder="Email" style=" cursor: auto;" autocomplete="off">
+                    <span asp-validation-for="EmailTo" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Amount" class="col-md-3 control-label">Amount</label>
-                    <div class="col-md-6">
-                        <input asp-for="Amount" type="text" id="amount" class="form-control" placeholder="Amount" style="cursor: auto;" autocomplete="off">
-                        <span asp-validation-for="Amount" class="text-danger"></span>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="col-md-3 control-label">Amount</label>
+                <div class="col-md-6">
+                    <input asp-for="Amount" type="text" id="amount" class="form-control" placeholder="Amount" style="cursor: auto;" autocomplete="off">
+                    <span asp-validation-for="Amount" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-6 col-md-offset-3">
-                        <button type="submit" class="btn btn-lg btn-primary">Send</button>
-                    </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                    <button type="submit" class="btn btn-lg btn-primary">Send</button>
                 </div>
-            </fieldset>
-        </form>
-    </div>
+            </div>
+        </fieldset>
+    </form>
 </div>
