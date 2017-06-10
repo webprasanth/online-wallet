@@ -17,7 +17,6 @@ using NLog.Web;
 using OnlineWallet.Core;
 using OnlineWallet.Infrastructure.Data;
 using OnlineWallet.Infrastructure.IoC.Modules;
-using OnlineWallet.UI.Framework;
 using OnlineWallet.UI.Framework.Filters;
 
 namespace OnlineWallet.UI
@@ -25,9 +24,21 @@ namespace OnlineWallet.UI
     public class Startup
     {
 
-        public IConfigurationRoot Configuration { get; set; }
+        private readonly IConfigurationRoot _config;
+        private readonly IHostingEnvironment _env;
         public IContainer ApplicationContaianer { get; private set; }
 
+
+        public Startup(IHostingEnvironment env)
+        {
+            _env = env;
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("config.json");
+
+            _config = builder.Build();
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
@@ -40,8 +51,7 @@ namespace OnlineWallet.UI
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IUserActivityService, UserActivityService>();
 
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=OWDb;Trusted_Connection=True;";
-            services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(_config["ConnectionStrings:LocalMSSQL"]));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton(AutoMapperConfig.Initialize());
@@ -60,15 +70,15 @@ namespace OnlineWallet.UI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IApplicationLifetime appLifetime, ILoggerFactory loggerFactory)
         {
             //loggerFactory.AddConsole();
             //loggerFactory.AddDebug();
             loggerFactory.AddNLog();
             app.AddNLogWeb();
-            env.ConfigureNLog("nlog.conf");
+            _env.ConfigureNLog("nlog.conf");
 
-            if (env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

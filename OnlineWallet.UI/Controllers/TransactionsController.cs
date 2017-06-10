@@ -39,11 +39,14 @@ namespace OnlineWallet.UI.Controllers
                 return RedirectToAction("Transfer");
             }
 
-                command.UserId = UserId;
-                await DispatchAsync(command);
-                Logger.Info("Transfer done");
+            Logger.Info("Processing transfer");
 
-            return RedirectToAction("Index", "Users");
+            command.UserId = UserId;
+            await DispatchAsync(command);
+
+            Logger.Info("Transfer successful");
+
+            return RedirectToAction("Activity", "Users");
 
         }
 
@@ -61,12 +64,12 @@ namespace OnlineWallet.UI.Controllers
                 return RedirectToAction("Deposit");
             }
 
-                Logger.Info("Processing deposit");
+            Logger.Info("Processing deposit");
 
-                command.UserId = UserId;
-                await DispatchAsync(command);
+            command.UserId = UserId;
+            await DispatchAsync(command);
 
-                Logger.Info("Deposit done");
+            Logger.Info("Deposit successful");
 
             return RedirectToAction("Index", "Users");
 
@@ -85,9 +88,12 @@ namespace OnlineWallet.UI.Controllers
             {
                 return RedirectToAction("Withdraw");
             }
+            Logger.Info("Processing withdrawal");
 
-                command.UserId = UserId;
-                await DispatchAsync(command);
+            command.UserId = UserId;
+            await DispatchAsync(command);
+
+            Logger.Info("Withdrawal successful");
 
             return RedirectToAction("Index", "Users");
 

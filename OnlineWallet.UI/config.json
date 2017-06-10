@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings": {
+    "LocalMSSQL": "Server=(localdb)\\MSSQLLocalDB;Database=OWDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
+}

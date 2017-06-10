@@ -27,14 +27,16 @@ namespace OnlineWallet.UI.Controllers
         public async Task<IActionResult> Index()
         {
             Logger.Info("Fetching User' profile");
-            var user = await _userService.GetAsync(UserId);
 
+            var user = await _userService.GetAsync(UserId);
             return View(user);
         }
 
         [HttpGet]
         public async Task<IActionResult> Activity()
         {
+            Logger.Info("Fetching User' activity");
+
             var transactions = await _userActivityService.GetAllTransactions(UserId);
             return View(transactions);
         }
