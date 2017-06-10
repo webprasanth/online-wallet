@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
@@ -26,6 +25,11 @@ namespace OnlineWallet.UI.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+               return RedirectToAction("Index", "Users");
+            }
+
             return View();
         }
 
@@ -51,6 +55,11 @@ namespace OnlineWallet.UI.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Users");
+            }
+
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -60,6 +69,7 @@ namespace OnlineWallet.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
+
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Login");
