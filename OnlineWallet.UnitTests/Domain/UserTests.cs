@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using OnlineWallet.Core.Domain;
+using OnlineWallet.Infrastructure.Services;
 using Xunit;
 
 namespace OnlineWallet.UnitTests.Domain
@@ -15,11 +16,11 @@ namespace OnlineWallet.UnitTests.Domain
         }
 
         [Fact]
-        public void SetPassword_should_throw_ArgumentNullException()
+        public void SetPassword_should_throw_DomainException()
         {
             var exception = Record.Exception(() => _user.SetPassword(""));
 
-            exception.Should().BeOfType<ArgumentNullException>();
+            exception.Should().BeOfType<DomainException>();
         }
 
         [Theory]

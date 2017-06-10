@@ -27,7 +27,7 @@ namespace OnlineWallet.Infrastructure.Repositories
 
         public async Task<IEnumerable<Transfer>> GetAllTransfersAsync(Guid userid)
         {
-            return await Context.Transactions.OfType<Transfer>().Where(t => t.UserFrom.Id == userid).Include(x => x.UserTo).ToListAsync();
+            return await Context.Transactions.OfType<Transfer>().Where(t => t.UserFrom.Id == userid || t.UserTo.Id == userid).Include(x => x.UserFrom).Include(x => x.UserTo).ToListAsync();
         }
 
         public async Task<IEnumerable<Deposit>> GetAllDepositsAsync(Guid userid)

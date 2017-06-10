@@ -28,11 +28,11 @@ namespace OnlineWallet.Infrastructure.Services
             var withdrawals = await _unitOfWork.Transactions.GetAllWithdrawalsAsync(userId);
 
             var tranasctions = transfers
-                .Select(t => new TransactionDto {Id = t.Id, Amount = t.Amount, Date = t.Date,Type = "Transfer",UserTo = t.UserTo.Email})
+                .Select(t => new TransactionDto {Id = t.Id, Amount = t.Amount, Date = t.Date,Type = "Transfer", UserFrom = t.UserFrom.Email ,UserTo = t.UserTo.Email})
                 .Union(deposits.Select(
-                    d => new TransactionDto {Id = d.Id, Amount = d.Amount, Date = d.Date, Type = "Deposit",UserTo = ""}))
+                    d => new TransactionDto {Id = d.Id, Amount = d.Amount, Date = d.Date, Type = "Deposit", UserFrom = "", UserTo = ""}))
                 .Union(withdrawals.Select(
-                    w => new TransactionDto {Id = w.Id, Amount = w.Amount, Date = w.Date, Type = "Withdrawal", UserTo = "" }));
+                    w => new TransactionDto {Id = w.Id, Amount = w.Amount, Date = w.Date, Type = "Withdrawal", UserFrom = "", UserTo = "" }));
 
             return tranasctions.OrderByDescending(t => t.Date);
         }

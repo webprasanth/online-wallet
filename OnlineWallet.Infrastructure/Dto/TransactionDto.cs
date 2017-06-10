@@ -12,6 +12,9 @@ namespace OnlineWallet.Infrastructure.Dto
 
         public string Type { get; set; }
 
+        public string UserFrom { get; set; }
+
         public string UserTo { get; set; }
+
     }
 }
