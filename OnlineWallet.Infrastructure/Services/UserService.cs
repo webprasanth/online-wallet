@@ -49,6 +49,19 @@ namespace OnlineWallet.Infrastructure.Services
             }
         }
 
+        public async Task ChangePhoneNumberAsync(Guid id, string phoneNumber)
+        {
+            var user = await _unitOfWork.Users.GetAsync(id);
+
+            if (!int.TryParse(phoneNumber,out int number))
+            {
+                throw  new ServiceException(InvalidValue,"Phone number must consist of up to 9 digits");
+            }
+
+            user.SetPhoneNumber(number);
+            _unitOfWork.Save();
+        }
+
         public async Task<UserDto> GetAsync(string mail)
         {
             var user = await _unitOfWork.Users.GetAsync(mail);

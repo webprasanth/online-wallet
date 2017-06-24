@@ -37,6 +37,17 @@ namespace OnlineWallet.Core.Domain
 
         public decimal Balance { get; protected set; }
 
+        private void SetBalance(decimal value)
+        {
+            if (value < 0)
+            {
+                throw new DomainException(InvalidBalance, "Cannot set balance to negative");
+            }
+            else
+            {
+                Balance = value;
+            }
+        }
 
         public void SetEmail(string email)
         {
@@ -50,6 +61,24 @@ namespace OnlineWallet.Core.Domain
             }
 
             Email = email.ToLowerInvariant();
+        }
+
+        public void SetPhoneNumber(int number)
+        {
+            if (number == PhoneNumber)
+            {
+                return;
+            }
+            else if (number > 999999999)
+            {
+                throw new DomainException(InvalidPhoneNumber, "Phone number cannot have more than 9 digits");
+            }
+            else if (number < 0)
+            {
+                throw new DomainException(InvalidPhoneNumber, "Phone number cannot be negative");
+            }
+
+            PhoneNumber = number;
         }
 
         public bool ValidatePassword(string password)
@@ -80,18 +109,7 @@ namespace OnlineWallet.Core.Domain
 
         }
 
-        private void SetBalance(decimal value)
-        {
-            if (value < 0)
-            {
-                throw new DomainException(InvalidBalance,"Cannot set balance to negative");
-            }
-            else
-            {
-                Balance = value;
-            }
-        }
-
+        
         public void IncreaseBalance(decimal value)
         {
             if (value <= 0)

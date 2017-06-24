@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using OnlineWallet.Infrastructure.Commands;
+using OnlineWallet.Infrastructure.Commands.Users;
 using OnlineWallet.Infrastructure.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -45,6 +46,22 @@ namespace OnlineWallet.UI.Controllers
         public IActionResult Dashboard()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePhoneNumber(ChangePhoneNumber command)
+        {
+            Logger.Info("Changing phone number");
+
+            await DispatchAsync(command);
+
+            return RedirectToAction("Index");
         }
     }
 }
