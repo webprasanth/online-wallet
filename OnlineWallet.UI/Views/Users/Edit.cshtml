@@ -1,5 +1,4 @@
-﻿@model OnlineWallet.Infrastructure.Commands.Users.ChangePhoneNumber
-@{
+﻿@{
     ViewBag.Title = "Edit Profile";
 }
 @section scripts
@@ -8,23 +7,5 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 }
 
-<div class="col-md-6 col-md-offset-3">
-    <form  asp-action="ChangePhoneNumber" class="form-horizontal">
-        <fieldset>
-            <legend>@ViewBag.Title</legend>
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Number" class="col-md-3 control-label">Phone Number</label>
-                <div class="col-md-6">
-                    <input asp-for="Number" type="text" id="amount" class="form-control" placeholder="Number" style="cursor: auto;" autocomplete="off">
-                    <span asp-validation-for="Number" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-6 col-md-offset-3">
-                    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-                </div>
-            </div>
-        </fieldset>
-    </form>
-</div>
+@Html.Partial("ChangePhoneNumber")
+@Html.Partial("ChangeAddress")

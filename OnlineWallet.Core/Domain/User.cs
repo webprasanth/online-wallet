@@ -81,6 +81,20 @@ namespace OnlineWallet.Core.Domain
             PhoneNumber = number;
         }
 
+        public void SetAddress(string address)
+        {
+            if (address == Address)
+            {
+                return;
+            }
+            else if (address.Length > 255)
+            {
+                throw new DomainException(InvalidAddress, "Address is too long.");
+            }
+
+            Address = address;
+        }
+
         public bool ValidatePassword(string password)
         {
             return String.Equals(password, Password);

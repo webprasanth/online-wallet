@@ -62,6 +62,14 @@ namespace OnlineWallet.Infrastructure.Services
             _unitOfWork.Save();
         }
 
+        public async Task ChangeAddressAsync(Guid id, string address)
+        {
+            var user = await _unitOfWork.Users.GetAsync(id);
+
+            user.SetAddress(address);
+            _unitOfWork.Save();
+        }
+
         public async Task<UserDto> GetAsync(string mail)
         {
             var user = await _unitOfWork.Users.GetAsync(mail);

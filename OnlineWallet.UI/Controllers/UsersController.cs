@@ -18,6 +18,9 @@ namespace OnlineWallet.UI.Controllers
         private readonly IUserService _userService;
         private readonly IUserActivityService _userActivityService;
 
+        [ActionContext]
+        public ActionContext ActionContext { get; set; }
+
         public UsersController(IUserService userService,IUserActivityService userActivityService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _userService = userService;
@@ -57,7 +60,21 @@ namespace OnlineWallet.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePhoneNumber(ChangePhoneNumber command)
         {
+            ActionContext.RouteData.Values["action"] = "Edit";
+
             Logger.Info("Changing phone number");
+
+            await DispatchAsync(command);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeAddress(ChangeAddress command)
+        {
+            ActionContext.RouteData.Values["action"] = "Edit";
+
+            Logger.Info("Changing Address");
 
             await DispatchAsync(command);
 

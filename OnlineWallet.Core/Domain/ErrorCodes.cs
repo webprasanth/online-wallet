@@ -6,6 +6,8 @@
         public static string InvalidPassword => "invalid_password";
         public static string InvalidBalance => "invalid_balance";
         public static string InvalidPhoneNumber => "invalid_phoneNumber";
+        public static string InvalidAddress => "invalid_address";
+
 
     }
 }

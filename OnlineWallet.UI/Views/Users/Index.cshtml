@@ -9,8 +9,7 @@
         <h2>@ViewBag.Title</h2>
     </div>
     <div class="col-md-6 col-md-offset-1">
-
-        <div class="panel-group">
+        <div>
             <div class="panel panel-default">
                 <div class="panel-heading">Full Name</div>
                 <div class="panel-body">@Model.FullName</div>
@@ -38,7 +37,9 @@
             <div class="panel-heading">Balance</div>
             <div class="panel-body">@Model.Balance</div>
         </div>
-
+        <div>
+            <a asp-controller="Users" asp-action="Edit" class="btn btn-default btn-lg btn-block">Edit Profile</a>
+        </div>
     </div>
 </div>
 
