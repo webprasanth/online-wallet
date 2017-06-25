@@ -95,6 +95,12 @@ namespace OnlineWallet.Core.Domain
             Address = address;
         }
 
+        /// <summary>
+        /// Compare password to the one that is currently set.
+        /// Returns true whenever passwords are equal.
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public bool ValidatePassword(string password)
         {
             return String.Equals(password, Password);
@@ -102,6 +108,10 @@ namespace OnlineWallet.Core.Domain
 
         public void SetPassword(string password)
         {
+            if (Password == password)
+            {
+                return;
+            }
             if (string.IsNullOrWhiteSpace(password))
             {
                 throw new DomainException(InvalidPassword,"Password cannot be empty");
@@ -114,13 +124,8 @@ namespace OnlineWallet.Core.Domain
             {
                 throw new DomainException(InvalidPassword, "Password can not contain more than 32 characters.");
             }
-            if (Password == password)
-            {
-                return;
-            }
 
             Password = password;
-
         }
 
         

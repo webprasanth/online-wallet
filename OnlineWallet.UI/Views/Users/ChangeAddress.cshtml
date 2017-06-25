@@ -7,7 +7,7 @@
             <div class="form-group">
                 <label asp-for="Address" class="col-md-3 control-label">Address</label>
                 <div class="col-md-6">
-                    <input asp-for="Address" type="text" class="form-control" placeholder="Address" style="cursor: auto;" autocomplete="off">
+                    <textarea asp-for="Address" type="text" class="form-control" placeholder="Address" style="resize: vertical; cursor: auto;" autocomplete="off"></textarea>
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
             </div>

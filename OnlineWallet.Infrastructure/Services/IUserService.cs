@@ -12,5 +12,6 @@ namespace OnlineWallet.Infrastructure.Services
         Task LoginAsync(string email, string password);
         Task ChangePhoneNumberAsync(Guid id, string phoneNumber);
         Task ChangeAddressAsync(Guid id, string address);
+        Task ChangePasswordAsync(Guid id, string currentPassword, string newPassword);
     }
 }

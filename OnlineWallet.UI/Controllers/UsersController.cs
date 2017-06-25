@@ -80,5 +80,17 @@ namespace OnlineWallet.UI.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePassword command)
+        {
+            ActionContext.RouteData.Values["action"] = "Edit";
+
+            Logger.Info("Changing Password");
+
+            await DispatchAsync(command);
+
+            return RedirectToAction("Index");
+        }
     }
 }

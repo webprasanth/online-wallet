@@ -70,6 +70,19 @@ namespace OnlineWallet.Infrastructure.Services
             _unitOfWork.Save();
         }
 
+        public async Task ChangePasswordAsync(Guid id, string currentPassword, string newPassword)
+        {
+            var user = await _unitOfWork.Users.GetAsync(id);
+
+            if (!user.ValidatePassword(currentPassword))
+            {
+                throw new ServiceException(InvalidCredentials,"Current password doesn't match.");
+            }
+
+            user.SetPassword(newPassword);
+            _unitOfWork.Save();
+        }
+
         public async Task<UserDto> GetAsync(string mail)
         {
             var user = await _unitOfWork.Users.GetAsync(mail);
