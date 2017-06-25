@@ -51,7 +51,15 @@ namespace OnlineWallet.UI
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IUserActivityService, UserActivityService>();
 
-            services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(_config["ConnectionStrings:LocalMSSQL"]));
+            if (_env.IsDevelopment())
+            {
+                services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(_config["ConnectionStrings:LocalMSSQL"]));
+            }
+            else
+            {
+                services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("SQLCONNSTR_Azure")));
+            }
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton(AutoMapperConfig.Initialize());
