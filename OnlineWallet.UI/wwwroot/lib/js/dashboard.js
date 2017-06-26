@@ -40,8 +40,14 @@
                         outcomes += val.amount;
                     }
                 });
-            createTDWchart(transfers, deposits, withdrawals);
-            createIOchart(incomes, outcomes);
+            console.log(transfers+" " + deposits + " " + withdrawals);
+            if (transfers === 0 && deposits === 0 && withdrawals === 0) {
+                $("#charts").remove();
+                $("body").append('<div class="col-md-12"><h2><center>To display charts you need to do some transaction</center></h2></div>');
+            } else {
+                createTDWchart(transfers, deposits, withdrawals);
+                createIOchart(incomes, outcomes);
+            }
 
         },
         error: function (request, status, error) {
