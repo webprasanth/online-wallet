@@ -1,21 +1,23 @@
 ﻿@model OnlineWallet.Infrastructure.Commands.Users.ChangeAddress
 
 <div class="col-md-6 col-md-offset-3">
-    <form asp-action="ChangeAddress" class="form-horizontal">
-        <fieldset>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Address" class="col-md-3 control-label">Address</label>
-                <div class="col-md-6">
-                    <textarea asp-for="Address" type="text" class="form-control" placeholder="Address" style="resize: vertical; cursor: auto;" autocomplete="off"></textarea>
-                    <span asp-validation-for="Address" class="text-danger"></span>
+    <div class="jumbotron">
+        <form asp-action="ChangeAddress" class="form-horizontal">
+            <fieldset>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Address" class="col-md-3 control-label">Address</label>
+                    <div class="col-md-6">
+                        <textarea asp-for="Address" type="text" class="form-control" placeholder="Address" style="resize: vertical; cursor: auto;" autocomplete="off"></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-6 col-md-offset-3">
-                    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-3">
+                        <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                    </div>
                 </div>
-            </div>
-        </fieldset>
-    </form>
+            </fieldset>
+        </form>
+    </div>
 </div>
