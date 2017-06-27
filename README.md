@@ -8,9 +8,11 @@
 - manage profile (change password etc.)
 - show history of transactions with a simple, intuitive dashboard with graphs/diagrams
 
+##### live demo: http://onlinewallet.azurewebsites.net/
+
 ## The main objective of this project is to help me learn following concepts:
 * ASP.NET MVC Core, Web API 
-* Entity Framework Core, Dapper 
+* Entity Framework Core 
 * MS SQL
 * DDD
 * CQS
@@ -18,4 +20,3 @@
 * Repositry pattern and maybe few others when needed
 * Basics of tests
 * Basics of Javascript/jQuery,Bootstrap
-
