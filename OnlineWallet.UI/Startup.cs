@@ -9,6 +9,7 @@ using OnlineWallet.Infrastructure.Repositories;
 using OnlineWallet.Infrastructure.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using jQWidgets.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -71,6 +72,7 @@ namespace OnlineWallet.UI
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule<CommandModule>();
+            builder.RegisterModule(new QueriesModule(_config["ConnectionStrings:LocalMSSQL"]));
 
             ApplicationContaianer = builder.Build();
 
