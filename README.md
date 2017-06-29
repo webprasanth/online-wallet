@@ -12,7 +12,7 @@
 
 ## The main objective of this project is to help me learn following concepts:
 * ASP.NET MVC Core, Web API 
-* Entity Framework Core 
+* Entity Framework Core, Dapper
 * MS SQL
 * DDD
 * CQS
