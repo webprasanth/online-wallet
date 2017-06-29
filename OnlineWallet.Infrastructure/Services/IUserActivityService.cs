@@ -5,8 +5,8 @@ using OnlineWallet.Infrastructure.Dto;
 
 namespace OnlineWallet.Infrastructure.Services
 {
-    public interface IUserActivityService
-    {
-        Task<IEnumerable<TransactionDto>> GetAllTransactions(Guid userId);
-    }
+    //public interface IUserActivityService
+    //{
+    //    Task<IEnumerable<TransactionDto>> GetAllTransactions(Guid userId);
+    //}
 }

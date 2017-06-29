@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using NLog;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.Users;
+using OnlineWallet.Infrastructure.Queries;
 using OnlineWallet.Infrastructure.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,15 +17,17 @@ namespace OnlineWallet.UI.Controllers
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly IUserService _userService;
-        private readonly IUserActivityService _userActivityService;
+       // private readonly IUserActivityService _userActivityService;
+        private readonly ITransactionQueries _transactionQueries;
 
         [ActionContext]
         public ActionContext ActionContext { get; set; }
 
-        public UsersController(IUserService userService,IUserActivityService userActivityService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher, ITransactionQueries transactionQueries) : base(commandDispatcher)
         {
             _userService = userService;
-            _userActivityService = userActivityService;
+            //_userActivityService = userActivityService;
+            _transactionQueries = transactionQueries;
         }
 
         // GET: /<controller>/
@@ -41,7 +44,8 @@ namespace OnlineWallet.UI.Controllers
         {
             Logger.Info("Fetching User' activity");
 
-            var transactions = await _userActivityService.GetAllTransactions(UserId);
+            //var transactions = await _userActivityService.GetAllTransactions(UserId);
+            var transactions = await _transactionQueries.GetTransactionsWithDetailsAsync(UserId);
             return View(transactions);
         }
 

@@ -50,7 +50,7 @@ namespace OnlineWallet.UI
 
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
-            services.AddScoped<IUserActivityService, UserActivityService>();
+            //services.AddScoped<IUserActivityService, UserActivityService>();
 
             if (_env.IsDevelopment())
             {
