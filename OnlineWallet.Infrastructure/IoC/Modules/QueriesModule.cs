@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Autofac;
 using OnlineWallet.Infrastructure.Queries;
+using OnlineWallet.Infrastructure.Queries.Users;
 
 namespace OnlineWallet.Infrastructure.IoC.Modules
 {
@@ -28,6 +29,10 @@ namespace OnlineWallet.Infrastructure.IoC.Modules
 
             builder.Register(c => new TransactionQueries(QueriesConnectionString))
                 .As<ITransactionQueries>()
+                .InstancePerLifetimeScope();
+
+            builder.Register(c => new UserQueries(QueriesConnectionString))
+                .As<IUserQueries>()
                 .InstancePerLifetimeScope();
         }
     }
