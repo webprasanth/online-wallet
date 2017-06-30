@@ -4,6 +4,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using NLog;
 using OnlineWallet.Infrastructure.Commands;
+using OnlineWallet.Infrastructure.Queries;
 using OnlineWallet.Infrastructure.Services;
 using OnlineWallet.UI.ViewModels;
 
@@ -16,7 +17,7 @@ namespace OnlineWallet.UI.Controllers
         private readonly IUserService _userService;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public AccountController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public AccountController(IUserService userService, ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
             _userService = userService;
         }

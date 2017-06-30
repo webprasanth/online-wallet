@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using NLog;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.Transactions;
+using OnlineWallet.Infrastructure.Queries;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,7 +16,7 @@ namespace OnlineWallet.UI.Controllers
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public TransactionsController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public TransactionsController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher,queryDispatcher)
         {
         }
 

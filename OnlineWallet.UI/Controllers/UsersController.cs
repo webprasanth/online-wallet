@@ -6,6 +6,8 @@ using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.Users;
 using OnlineWallet.Infrastructure.Queries;
 using OnlineWallet.Infrastructure.Services;
+using System.Collections.Generic;
+using OnlineWallet.Infrastructure.Dto;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,17 +19,13 @@ namespace OnlineWallet.UI.Controllers
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly IUserService _userService;
-       // private readonly IUserActivityService _userActivityService;
-        private readonly ITransactionQueries _transactionQueries;
 
         [ActionContext]
         public ActionContext ActionContext { get; set; }
 
-        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher, ITransactionQueries transactionQueries) : base(commandDispatcher)
+        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher,queryDispatcher)
         {
             _userService = userService;
-            //_userActivityService = userActivityService;
-            _transactionQueries = transactionQueries;
         }
 
         // GET: /<controller>/
@@ -40,12 +38,12 @@ namespace OnlineWallet.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Activity()
+        public async Task<IActionResult> Activity(GetTransactionsWithDetails query)
         {
             Logger.Info("Fetching User' activity");
 
-            //var transactions = await _userActivityService.GetAllTransactions(UserId);
-            var transactions = await _transactionQueries.GetTransactionsWithDetailsAsync(UserId);
+            query.UserId = UserId;
+            var transactions = await DispatchAsync<GetTransactionsWithDetails, IEnumerable<TransactionDto>>(query);
             return View(transactions);
         }
 

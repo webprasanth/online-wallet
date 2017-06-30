@@ -4,7 +4,7 @@ using OnlineWallet.Infrastructure.Commands;
 
 namespace OnlineWallet.Infrastructure.IoC.Modules
 {
-    public class CommandModule : Autofac.Module
+    public sealed class CommandModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {

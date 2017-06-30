@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Dto;
+using OnlineWallet.Infrastructure.Queries;
 using OnlineWallet.Infrastructure.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,7 +14,7 @@ namespace OnlineWallet.UI.Api
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public UserController(IUserService userService, ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
             _userService = userService;
         }
