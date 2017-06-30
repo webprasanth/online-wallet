@@ -89,12 +89,5 @@ namespace OnlineWallet.Infrastructure.Services
 
             return _mapper.Map<User, UserDto>(user);
         }
-
-        public async Task<UserDto> GetAsync(Guid id)
-        {
-            var user = await _unitOfWork.Users.GetAsync(id);
-            return _mapper.Map<UserDto>(user);
-        }
-
     }
 }

@@ -5,9 +5,9 @@ using NLog;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.Users;
 using OnlineWallet.Infrastructure.Queries;
-using OnlineWallet.Infrastructure.Services;
 using System.Collections.Generic;
 using OnlineWallet.Infrastructure.Dto;
+using OnlineWallet.Infrastructure.Queries.Users;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,14 +18,11 @@ namespace OnlineWallet.UI.Controllers
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        private readonly IUserService _userService;
-
         [ActionContext]
         public ActionContext ActionContext { get; set; }
 
-        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher,queryDispatcher)
+        public UsersController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher,queryDispatcher)
         {
-            _userService = userService;
         }
 
         // GET: /<controller>/
@@ -33,7 +30,8 @@ namespace OnlineWallet.UI.Controllers
         {
             Logger.Info("Fetching User' profile");
 
-            var user = await _userService.GetAsync(UserId);
+            var user = await DispatchAsync<GetUser, UserDto>(new GetUser());
+
             return View(user);
         }
 
@@ -42,7 +40,6 @@ namespace OnlineWallet.UI.Controllers
         {
             Logger.Info("Fetching User' activity");
 
-            query.UserId = UserId;
             var transactions = await DispatchAsync<GetTransactionsWithDetails, IEnumerable<TransactionDto>>(query);
             return View(transactions);
         }

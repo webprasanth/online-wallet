@@ -29,7 +29,7 @@ namespace OnlineWallet.Infrastructure.Queries
                               ,[UserFromId] as [UserFrom]
                               ,[UserToId] as [UserTo]
                           FROM [OWDb].[dbo].[Transactions]
-                          WHERE [Id] = @Id ;";
+                          WHERE [Id] = @Id;";
 
                 var transactionDto = await connection.QuerySingleOrDefaultAsync<TransactionDto>(sql, new {Id = id} );
 
@@ -52,9 +52,10 @@ namespace OnlineWallet.Infrastructure.Queries
                           FROM (([OWDb].[dbo].[Transactions]
 						  JOIN [Users] ON [Transactions].[UserFromId] = [Users].[Id])
 						  LEFT JOIN [Users] [Users2] ON [Transactions].[UserToId] = [Users2].[Id])
-                          WHERE [UserFromId] = @UserID OR [UserToId] = @UserID;";
+                          WHERE [UserFromId] = @UserId OR [UserToId] = @UserId
+						  ORDER BY [Transactions].[Date] DESC;";
 
-                var transactionDtos = await connection.QueryAsync<TransactionDto>(sql, new { UserID = userId.ToString() });
+                var transactionDtos = await connection.QueryAsync<TransactionDto>(sql, new { UserId = userId.ToString() });
 
                 return transactionDtos;
             }

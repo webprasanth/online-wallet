@@ -25,10 +25,6 @@ namespace OnlineWallet.Infrastructure.Repositories
             return await Context.Users.SingleOrDefaultAsync(x => x.Email.ToLowerInvariant() == email);
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
-            => await Context.Users.ToListAsync();
-
-
         public async Task AddAsync(User user)
         {
             await Context.Users.AddAsync(user);

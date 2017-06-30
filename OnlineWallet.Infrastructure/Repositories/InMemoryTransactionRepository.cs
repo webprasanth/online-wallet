@@ -16,12 +16,6 @@ namespace OnlineWallet.Infrastructure.Repositories
             return await Task.FromResult(_transactions.SingleOrDefault(t => t.Id == id));
         }
 
-        public async Task<IEnumerable<Transaction>> GetAllAsync()
-            => await Task.FromResult(_transactions);
-
-        public async Task<IEnumerable<Transaction>> GetAllAsync(Guid userId)
-           => await Task.FromResult(_transactions.Where(t => t.UserFrom.Id == userId ));
-
         public async Task AddAsync(Transaction transaction)
         {
             _transactions.Add(transaction);
@@ -32,21 +26,6 @@ namespace OnlineWallet.Infrastructure.Repositories
         {
             var transaction = await GetAsync(id);
            await Task.FromResult(_transactions.Remove(transaction));
-        }
-
-        public Task<IEnumerable<Transfer>> GetAllTransfersAsync(Guid userid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Deposit>> GetAllDepositsAsync(Guid userid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Withdrawal>> GetAllWithdrawalsAsync(Guid userid)
-        {
-            throw new NotImplementedException();
         }
     }
 }
