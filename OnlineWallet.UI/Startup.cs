@@ -45,20 +45,23 @@ namespace OnlineWallet.UI
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            var builder = new ContainerBuilder();
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
-            //services.AddScoped<IUserActivityService, UserActivityService>();
 
             if (_env.IsDevelopment())
             {
                 services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(_config["ConnectionStrings:LocalMSSQL"]));
+                builder.RegisterModule(new QueriesModule(_config["ConnectionStrings:LocalMSSQL"]));
             }
             else
             {
                 services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("SQLCONNSTR_Azure")));
+                builder.RegisterModule(new QueriesModule(Environment.GetEnvironmentVariable("SQLCONNSTR_Azure")));
             }
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -69,10 +72,8 @@ namespace OnlineWallet.UI
 
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilter)));
 
-            var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule<CommandModule>();
-            builder.RegisterModule(new QueriesModule(_config["ConnectionStrings:LocalMSSQL"]));
 
             ApplicationContaianer = builder.Build();
 
