@@ -7,7 +7,9 @@ using OnlineWallet.Infrastructure.Commands.Users;
 using OnlineWallet.Infrastructure.Queries;
 using System.Collections.Generic;
 using OnlineWallet.Infrastructure.Dto;
+using OnlineWallet.Infrastructure.Queries.Transactions;
 using OnlineWallet.Infrastructure.Queries.Users;
+using X.PagedList;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,9 +41,16 @@ namespace OnlineWallet.UI.Controllers
         public async Task<IActionResult> Activity(GetTransactionsWithDetails query)
         {
             Logger.Info("Fetching User' activity");
+            if (query.Page <= 1)
+            {
+                query.Page = 1;
+            }
+            query.ItemsPerPage = 20;
+            var pagedTransactions = await DispatchAsync<GetTransactionsWithDetails, IPagedList<TransactionDto>>(query);
 
-            var transactions = await DispatchAsync<GetTransactionsWithDetails, IEnumerable<TransactionDto>>(query);
-            return View(transactions);
+            //ViewBag.OnePageOfProducts = pagedTransactions;
+
+            return View(pagedTransactions);
         }
 
         [HttpGet]

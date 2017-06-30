@@ -4,8 +4,9 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 using OnlineWallet.Infrastructure.Dto;
+using X.PagedList;
 
-namespace OnlineWallet.Infrastructure.Queries
+namespace OnlineWallet.Infrastructure.Queries.Transactions
 {
     public class TransactionQueries : ITransactionQueries
     {
@@ -37,27 +38,53 @@ namespace OnlineWallet.Infrastructure.Queries
             }
         }
 
-        public async Task<IEnumerable<TransactionDto>> GetTransactionsWithDetailsAsync(Guid userId)
+        public async Task<IEnumerable<TransactionDto>> GetAllTransactionsWithDetailsAsync(GetAllTransactionsWithDetails query)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                const string sql = @"SELECT [Transactions].[Id]
-                              ,[Transactions].[Amount]
-                              ,[Transactions].[Date]
-                              ,[Transactions].[Discriminator] as [Type]
+                const string sql = @"SELECT [T].[Id]
+                              ,[T].[Amount]
+                              ,[T].[Date]
+                              ,[T].[Discriminator] as [Type]
                               ,[Users].[Email] as [UserFrom]
                               ,[Users2].[Email] as [UserTo]
-                          FROM (([OWDb].[dbo].[Transactions]
-						  JOIN [Users] ON [Transactions].[UserFromId] = [Users].[Id])
-						  LEFT JOIN [Users] [Users2] ON [Transactions].[UserToId] = [Users2].[Id])
+                          FROM (([OWDb].[dbo].[Transactions] [T]
+						  JOIN [Users] ON [T].[UserFromId] = [Users].[Id])
+						  LEFT JOIN [Users] [Users2] ON [T].[UserToId] = [Users2].[Id])
                           WHERE [UserFromId] = @UserId OR [UserToId] = @UserId
-						  ORDER BY [Transactions].[Date] DESC;";
+						  ORDER BY [T].[Date] DESC;";
 
-                var transactionDtos = await connection.QueryAsync<TransactionDto>(sql, new { UserId = userId.ToString() });
+                var transactionDtos = await connection.QueryAsync<TransactionDto>(sql, new { UserId = query.UserId});
 
                 return transactionDtos;
+            }
+        }
+
+        public async Task<IPagedList<TransactionDto>> GetTransactionsWithDetailsAsync(GetTransactionsWithDetails query)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                const string sql = @"SELECT [T].[Id]
+                              ,[T].[Amount]
+                              ,[T].[Date]
+                              ,[T].[Discriminator] as [Type]
+                              ,[Users].[Email] as [UserFrom]
+                              ,[Users2].[Email] as [UserTo]
+                          FROM (([OWDb].[dbo].[Transactions] [T]
+						  JOIN [Users] ON [T].[UserFromId] = [Users].[Id])
+						  LEFT JOIN [Users] [Users2] ON [T].[UserToId] = [Users2].[Id])
+                          WHERE [UserFromId] = @UserId OR [UserToId] = @UserId
+						  ORDER BY [T].[Date] DESC;";
+
+                var transactionDtos = await connection.QueryAsync<TransactionDto>(sql, new { UserId = query.UserId });
+
+                var pagedTransactions = await transactionDtos.ToPagedListAsync(query.Page, query.ItemsPerPage);
+
+                return pagedTransactions;
             }
         }
     }
