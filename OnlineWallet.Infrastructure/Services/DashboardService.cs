@@ -2,16 +2,20 @@
 using System.Threading.Tasks;
 using OnlineWallet.Infrastructure.Dto;
 using OnlineWallet.Infrastructure.Queries.Transactions;
+using OnlineWallet.Infrastructure.Queries.Users;
+using static OnlineWallet.Infrastructure.ErrorCodes;
 
 namespace OnlineWallet.Infrastructure.Services
 {
     public class DashboardService : IDashboardService
     {
         private readonly ITransactionQueries _transactionQueries;
+        private readonly IUserQueries _userQueries;
 
-        public DashboardService(ITransactionQueries transactionQueries)
+        public DashboardService(ITransactionQueries transactionQueries, IUserQueries userQueries)
         {
             _transactionQueries = transactionQueries;
+            _userQueries = userQueries;
         }
         public async Task<DashboardDataDto> GetDashboardDataAsync(Guid userId)
         {
@@ -22,7 +26,14 @@ namespace OnlineWallet.Infrastructure.Services
             };
 
             var allTransactions = await _transactionQueries.GetAllTransactionsWithDetailsAsync(getAllTransactionsQuery);
+            var user = await _userQueries.GetUserAsync(userId); // not sufficient. Can be omitted and use just one query
 
+            if (user == null)
+            {
+                throw new ServiceException(UserNotFound);
+            }
+
+            var userEmail = user.Email;
             var withdrawals = 0;
             var deposits = 0;
             var transfers = 0;
@@ -43,7 +54,7 @@ namespace OnlineWallet.Infrastructure.Services
                         break;
                     case "Transfer":
                         transfers++;
-                        if (transaction.UserTo == userId.ToString())
+                        if (transaction.UserTo == userEmail)
                         {
                             incomes += transaction.Amount;
                         }

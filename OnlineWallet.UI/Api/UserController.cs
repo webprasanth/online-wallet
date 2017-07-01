@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Dto;
 using OnlineWallet.Infrastructure.Queries;
+using OnlineWallet.Infrastructure.Queries.Transactions;
 using OnlineWallet.Infrastructure.Queries.Users;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,5 +26,12 @@ namespace OnlineWallet.UI.Api
             return user;
         }
 
+        [HttpGet("Dashboard")]
+        public async Task<DashboardDataDto> Dashboard()
+        {
+            var dashboardData = await DispatchAsync<GetDashboardData, DashboardDataDto>(new GetDashboardData());
+
+            return dashboardData;
+        }
     }
 }
