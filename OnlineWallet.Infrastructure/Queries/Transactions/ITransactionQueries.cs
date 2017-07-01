@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OnlineWallet.Infrastructure.Dto;
-using X.PagedList;
 
 namespace OnlineWallet.Infrastructure.Queries.Transactions
 {
@@ -12,7 +11,7 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
 
         Task<IEnumerable<TransactionDto>> GetAllTransactionsWithDetailsAsync(GetAllTransactionsWithDetails query);
 
-        Task<IPagedList<TransactionDto>> GetTransactionsWithDetailsAsync(GetTransactionsWithDetails query);
+        Task<IEnumerable<TransactionDto>> GetTransactionsWithDetailsAsync(GetTransactionsWithDetails query);
 
     }
 }

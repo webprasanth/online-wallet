@@ -5,7 +5,6 @@ using NLog;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.Users;
 using OnlineWallet.Infrastructure.Queries;
-using System.Collections.Generic;
 using OnlineWallet.Infrastructure.Dto;
 using OnlineWallet.Infrastructure.Queries.Transactions;
 using OnlineWallet.Infrastructure.Queries.Users;
@@ -41,14 +40,8 @@ namespace OnlineWallet.UI.Controllers
         public async Task<IActionResult> Activity(GetTransactionsWithDetails query)
         {
             Logger.Info("Fetching User' activity");
-            if (query.Page <= 1)
-            {
-                query.Page = 1;
-            }
-            query.ItemsPerPage = 20;
-            var pagedTransactions = await DispatchAsync<GetTransactionsWithDetails, IPagedList<TransactionDto>>(query);
 
-            //ViewBag.OnePageOfProducts = pagedTransactions;
+            var pagedTransactions = await DispatchAsync<GetTransactionsWithDetails, IPagedList<TransactionDto>>(query);
 
             return View(pagedTransactions);
         }

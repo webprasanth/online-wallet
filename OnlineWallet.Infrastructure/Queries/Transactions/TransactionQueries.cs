@@ -62,7 +62,7 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
             }
         }
 
-        public async Task<IPagedList<TransactionDto>> GetTransactionsWithDetailsAsync(GetTransactionsWithDetails query)
+        public async Task<IEnumerable<TransactionDto>> GetTransactionsWithDetailsAsync(GetTransactionsWithDetails query)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -82,9 +82,7 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
 
                 var transactionDtos = await connection.QueryAsync<TransactionDto>(sql, new { UserId = query.UserId });
 
-                var pagedTransactions = await transactionDtos.ToPagedListAsync(query.Page, query.ItemsPerPage);
-
-                return pagedTransactions;
+                return transactionDtos;
             }
         }
     }
