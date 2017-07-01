@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 using OnlineWallet.Infrastructure.Dto;
-using X.PagedList;
 
 namespace OnlineWallet.Infrastructure.Queries.Transactions
 {

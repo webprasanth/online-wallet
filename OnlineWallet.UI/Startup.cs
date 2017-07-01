@@ -9,7 +9,6 @@ using OnlineWallet.Infrastructure.Repositories;
 using OnlineWallet.Infrastructure.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using jQWidgets.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -45,13 +44,15 @@ namespace OnlineWallet.UI
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            var builder = new ContainerBuilder();
-
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
+
+            services.AddScoped<IDashboardService, DashboardService>();
+
+            var builder = new ContainerBuilder();
 
             if (_env.IsDevelopment())
             {
@@ -76,7 +77,6 @@ namespace OnlineWallet.UI
             builder.RegisterModule<CommandModule>();
 
             ApplicationContaianer = builder.Build();
-
             return new AutofacServiceProvider(ApplicationContaianer);
         }
 
