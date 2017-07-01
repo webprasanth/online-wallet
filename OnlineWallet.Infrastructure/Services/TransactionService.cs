@@ -62,6 +62,11 @@ namespace OnlineWallet.Infrastructure.Services
 
             var userMakingTransfer = await _unitOfWork.Users.GetAsync(userId);
 
+            if (userReceivingTransfer.Id == userMakingTransfer.Id)
+            {
+                throw new ServiceException(InvalidValue, "You cannot transfer money to yourself");
+            }
+
             userMakingTransfer.ReduceBalance(amount);
             userReceivingTransfer.IncreaseBalance(amount);
 
