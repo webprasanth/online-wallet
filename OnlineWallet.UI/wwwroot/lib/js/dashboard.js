@@ -27,17 +27,18 @@
                 function (index, val) {
                     if (val.type === "Transfer") {
                         transfers++;
+                        var amount = val.amount * 100;
                         if (val.userTo === currentUserEmail) {
-                            incomes += val.amount;
+                            incomes += amount;
                         } else {
-                            outcomes += val.amount;
+                            outcomes += amount;
                         }
                     } else if (val.type === "Deposit") {
                         deposits++;
-                        incomes += val.amount;
+                        incomes += amount;
                     } else {
                         withdrawals++;
-                        outcomes += val.amount;
+                        outcomes += amount;
                     }
                 });
             console.log(transfers+" " + deposits + " " + withdrawals);
@@ -46,7 +47,7 @@
                 $("body").append('<div class="col-md-12"><h2><center>To display charts you need to do some transaction</center></h2></div>');
             } else {
                 createTDWchart(transfers, deposits, withdrawals);
-                createIOchart(incomes, outcomes);
+                createIOchart(incomes/100, outcomes/100);
             }
 
         },
