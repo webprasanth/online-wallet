@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using static OnlineWallet.Core.Domain.ErrorCodes;
 
 namespace OnlineWallet.Core.Domain
 {
     public class User
     {
+        private static readonly Regex EmailRegex = new Regex("^\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
+
         protected User()
         {
         }
@@ -12,12 +15,12 @@ namespace OnlineWallet.Core.Domain
         public User(string email, string password, string fullName, int? phoneNumber = null, string address = "")
         {
             Id = Guid.NewGuid();
-            Email = email.ToLowerInvariant();
-            Password = password;
             FullName = fullName;
-            PhoneNumber = phoneNumber;
             CreatedAt = DateTime.UtcNow;
-            Address = address;
+            SetPhoneNumber(phoneNumber);
+            SetAddress(address);
+            SetEmail(email);
+            SetPassword(password);
             SetBalance(0);
         }
 
@@ -51,19 +54,23 @@ namespace OnlineWallet.Core.Domain
 
         public void SetEmail(string email)
         {
+            if (Email == email)
+            {
+                return;
+            }
             if (string.IsNullOrWhiteSpace(email))
             {
                 throw new DomainException(InvalidEmail, "Email cannot be empty.");
             }
-            if (Email == email)
+            if (!EmailRegex.IsMatch(email))
             {
-                return;
+                throw new DomainException(InvalidEmail, "Invalid email");
             }
 
             Email = email.ToLowerInvariant();
         }
 
-        public void SetPhoneNumber(int number)
+        public void SetPhoneNumber(int? number)
         {
             if (number == PhoneNumber)
             {
