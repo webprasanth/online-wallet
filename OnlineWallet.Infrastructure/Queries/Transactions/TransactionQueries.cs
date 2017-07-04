@@ -93,12 +93,12 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
                 }
                 if (!string.IsNullOrWhiteSpace(query.Min))
                 {
-                    sqlSB.Append(" AND [T].[Amount] > @min ");
+                    sqlSB.Append(" AND [T].[Amount] >= @min ");
                     parameters.Add("min", query.Min);
                 }
                 if (!string.IsNullOrWhiteSpace(query.Max))
                 {
-                    sqlSB.Append(" AND [T].[Amount] < @max ");
+                    sqlSB.Append(" AND [T].[Amount] <= @max ");
                     parameters.Add("max", query.Max);
                 }
 
