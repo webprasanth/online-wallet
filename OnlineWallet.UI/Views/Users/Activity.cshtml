@@ -4,25 +4,50 @@
 }
 @using X.PagedList;
 @using X.PagedList.Mvc.Core
-<div class="col-md-8 col-md-offset-2">
+
+<div class="container col-md-8 col-md-offset-2">
     <h2>@ViewBag.Title</h2>
+    <form asp-controller="Users" asp-action="Activity" class="form-inline" method="get">
+        <div class="form-group">
+            <label class="sr-only" for="type">Type</label>
+            <select asp-for="@ViewData["Type"]" name="Type" class="form-control" id="type">
+                <option value="">All</option>
+                <option value="Transfer">Transfer</option>
+                <option value="Deposit">Deposit</option>
+                <option value="Withdrawal">Withdrawal</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="min">Min amount</label>
+            <input type="text" asp-for="@ViewData["Min"]" name="Min" class="form-control" id="min" placeholder="Min amount">
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="max">Max amount</label>
+            <input asp-for="@ViewData["Max"]" name="Max" type="text" class="form-control" id="max" placeholder="Max amount">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+    </form>
+    <br/>
+
+</div>
+<div class="col-md-8 col-md-offset-2">
     <table class="table table-striped table-hover">
         <thead>
-        <tr class="info">
-            <th>Nr</th>
-            <th>Type</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th>From</th>
-            <th>To</th>
-        </tr>
+            <tr class="info">
+                <th>Nr</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>From</th>
+                <th>To</th>
+            </tr>
         </thead>
         <tbody>
-        @{
+            @{
                 for (var i = 0; i < @Model.Count(); i++)
                 {
                     <tr>
-                        <td>@(Model.PageSize*(Model.PageNumber-1)+i+1)</td>
+                        <td>@(Model.PageSize * (Model.PageNumber - 1) + i + 1)</td>
                         <td>@Model.ElementAt(i).Type</td>
                         <td>@Model.ElementAt(i).Amount</td>
                         <td>@Model.ElementAt(i).Date</td>
@@ -30,7 +55,7 @@
                         <td>@Model.ElementAt(i).UserTo</td>
                     </tr>
                 }
-        }
+            }
         </tbody>
     </table>
     @Html.PagedListPager(Model, page => Url.Action("Activity", new { page }))

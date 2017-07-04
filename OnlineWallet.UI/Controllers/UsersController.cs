@@ -41,6 +41,10 @@ namespace OnlineWallet.UI.Controllers
         {
             Logger.Info("Fetching User' activity");
 
+            ViewData["Type"] = query.Type;
+            ViewData["Min"] = query.Min;
+            ViewData["Max"] = query.Max;
+
             var pagedTransactions = await DispatchAsync<GetTransactionsWithDetails, IPagedList<TransactionDto>>(query);
 
             return View(pagedTransactions);

@@ -12,11 +12,11 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
 
         [RegularExpression(@"[0-9]+(\.[0-9][0-9]?)?", ErrorMessage = "invalid value")]
         [Range(1.00, 10000000.00)]
-        public string MinAmount { get; set; }
+        public string Min { get; set; }
 
         [RegularExpression(@"[0-9]+(\.[0-9][0-9]?)?", ErrorMessage = "invalid value")]
         [Range(1.00, 10000000.00)]
-        public string MaxAmount { get; set; }
+        public string Max { get; set; }
 
     }
 }

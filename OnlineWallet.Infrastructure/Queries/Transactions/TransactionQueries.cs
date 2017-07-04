@@ -91,15 +91,15 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
                     sqlSB.Append(" AND [T].[Discriminator] = @type ");
                     parameters.Add("type",query.Type);
                 }
-                if (!string.IsNullOrWhiteSpace(query.MinAmount))
+                if (!string.IsNullOrWhiteSpace(query.Min))
                 {
                     sqlSB.Append(" AND [T].[Amount] > @min ");
-                    parameters.Add("min", query.MinAmount);
+                    parameters.Add("min", query.Min);
                 }
-                if (!string.IsNullOrWhiteSpace(query.MaxAmount))
+                if (!string.IsNullOrWhiteSpace(query.Max))
                 {
                     sqlSB.Append(" AND [T].[Amount] < @max ");
-                    parameters.Add("max", query.MaxAmount);
+                    parameters.Add("max", query.Max);
                 }
 
                 const string sqlOrder = " ORDER BY [T].[Date] DESC;";
