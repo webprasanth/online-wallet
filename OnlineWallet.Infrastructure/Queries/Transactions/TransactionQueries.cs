@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using OnlineWallet.Infrastructure.Dto;
@@ -63,11 +64,12 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
 
         public async Task<IEnumerable<TransactionDto>> GetTransactionsWithDetailsAsync(GetTransactionsWithDetails query)
         {
+            
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                const string sql = @"SELECT [T].[Id]
+                const string sqlBase = @"SELECT [T].[Id]
                               ,[T].[Amount]
                               ,[T].[Date]
                               ,[T].[Discriminator] as [Type]
@@ -76,10 +78,35 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
                           FROM (([OWDb].[dbo].[Transactions] [T]
 						  JOIN [Users] ON [T].[UserFromId] = [Users].[Id])
 						  LEFT JOIN [Users] [Users2] ON [T].[UserToId] = [Users2].[Id])
-                          WHERE [UserFromId] = @UserId OR [UserToId] = @UserId
-						  ORDER BY [T].[Date] DESC;";
+                          WHERE ([UserFromId] = @UserId OR [UserToId] = @UserId) ";
 
-                var transactionDtos = await connection.QueryAsync<TransactionDto>(sql, new { UserId = query.UserId });
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("UserId", query.UserId);
+
+                StringBuilder sqlSB = new StringBuilder(sqlBase);
+
+                //encapsulate and add more filters
+                if (!string.IsNullOrWhiteSpace(query.Type))
+                {
+                    sqlSB.Append(" AND [T].[Discriminator] = @type ");
+                    parameters.Add("type",query.Type);
+                }
+                if (!string.IsNullOrWhiteSpace(query.MinAmount))
+                {
+                    sqlSB.Append(" AND [T].[Amount] > @min ");
+                    parameters.Add("min", query.MinAmount);
+                }
+                if (!string.IsNullOrWhiteSpace(query.MaxAmount))
+                {
+                    sqlSB.Append(" AND [T].[Amount] < @max ");
+                    parameters.Add("max", query.MaxAmount);
+                }
+
+                const string sqlOrder = " ORDER BY [T].[Date] DESC;";
+                sqlSB.Append(sqlOrder);
+
+                var sql = sqlSB.ToString();
+                var transactionDtos = await connection.QueryAsync<TransactionDto>(sql, parameters);
 
                 return transactionDtos;
             }
