@@ -45,6 +45,12 @@ namespace OnlineWallet.UI.Controllers
             ViewData["Min"] = query.Min;
             ViewData["Max"] = query.Max;
 
+            if (!ModelState.IsValid)
+            {
+                ViewData.Clear();
+                query = new GetTransactionsWithDetails();
+            }
+
             var pagedTransactions = await DispatchAsync<GetTransactionsWithDetails, IPagedList<TransactionDto>>(query);
 
             return View(pagedTransactions);

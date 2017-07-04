@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "Transactions";
 }
+@section scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}
 @using X.PagedList;
 @using X.PagedList.Mvc.Core
 
@@ -27,8 +32,7 @@
         </div>
         <button type="submit" class="btn btn-default">Search</button>
     </form>
-    <br/>
-
+    <div asp-validation-summary="All" class="text-danger"></div>
 </div>
 <div class="col-md-8 col-md-offset-2">
     <table class="table table-striped table-hover">
