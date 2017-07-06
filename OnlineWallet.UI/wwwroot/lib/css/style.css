@@ -1,12 +1,11 @@
 ﻿.footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    padding: 12px;
     height: 40px;
-    padding: 7px;
-    border-top: 3px solid transparent;
     background-color: #485563;
 }
 #homePlead {
     margin-top: -10px;
+}
+body {
+    padding-bottom: 60px;
 }
