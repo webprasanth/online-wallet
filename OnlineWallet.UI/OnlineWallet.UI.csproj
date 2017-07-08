@@ -11,13 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\lib\css\style.css" />
-    <Content Include="wwwroot\lib\js\charts.js" />
-    <Content Include="wwwroot\lib\js\script.js" />
-    <Content Include="wwwroot\lib\js\dashboard.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="nlog.conf">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
