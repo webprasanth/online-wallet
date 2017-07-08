@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-namespace OnlineWallet.Infrastructure.Commands.Users
+﻿namespace OnlineWallet.Infrastructure.Commands.Users
 {
     public class CreateUser : ICommand
     {

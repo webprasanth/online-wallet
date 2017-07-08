@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -29,9 +28,15 @@ namespace OnlineWallet.UI.Framework.Filters
             }
             context.ModelState.AddModelError(context.Exception.HResult.ToString(), context.Exception.Message);
             var viewname = context.RouteData.Values["action"].ToString();
-            var result = new ViewResult { ViewName = viewname };
-            result.ViewData = new ViewDataDictionary(_modelMetadataProvider, context.ModelState);
-            result.ViewData.Add("Exception", context.Exception);
+            var result = new ViewResult
+            {
+                ViewName = viewname,
+                ViewData =
+                    new ViewDataDictionary(_modelMetadataProvider, context.ModelState)
+                    {
+                        {"Exception", context.Exception}
+                    }
+            };
             context.ExceptionHandled = true;
             context.Result = result;
         }

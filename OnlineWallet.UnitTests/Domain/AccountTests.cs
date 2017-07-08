@@ -1,5 +1,4 @@
-﻿using System;
-using OnlineWallet.Core.Domain;
+﻿using OnlineWallet.Core.Domain;
 using Xunit;
 using FluentAssertions;
 
@@ -27,22 +26,10 @@ namespace OnlineWallet.UnitTests.Domain
         }
 
         [Theory]
-        [InlineData(1)]
-        [InlineData(15.50)]
-        [InlineData(213)]
-        public void IncreaseBalance_shouldnt_throw_exception_with_given_positive_values(decimal value)
-        {
-           var exception = Record.Exception(() => _user.IncreaseBalance(value));
-
-            exception.Should().BeNull();
-        }
-
-
-        [Theory]
         [InlineData(0)]
         [InlineData(-5.50)]
         [InlineData(-213)]
-        public void IncreaseBalance_should_throw_exception_oftype_DomainException_with_given_non_positive_values(decimal value)
+        public void IncreaseBalance_should_throw_DomainException_with_given_non_positive_values(decimal value)
         {
 
             var exception = Record.Exception(() => _user.IncreaseBalance(value));
@@ -50,18 +37,6 @@ namespace OnlineWallet.UnitTests.Domain
             exception.Should().BeOfType<DomainException>();
         }
 
-        [Theory]
-        [InlineData(1)]
-        [InlineData(15.50)]
-        [InlineData(213)]
-        public void ReduceBalance_shouldnt_throw_exception_with_given_positive_sufficient_values(decimal value)
-        {
-            _user.IncreaseBalance(1000);
-
-            var exception = Record.Exception(() => _user.ReduceBalance(value));
-
-            exception.Should().BeNull();
-        }
 
         [Theory]
         [InlineData(10)]
@@ -71,7 +46,7 @@ namespace OnlineWallet.UnitTests.Domain
         [InlineData(-2)]
         [InlineData(-32)]
         [InlineData(-4.4)]
-        public void ReduceBalance_should_throw_exception_oftype_DomainException_with_given_exceeded_and_non_positive_values(decimal value)
+        public void ReduceBalance_should_throw_DomainException_with_given_exceeded_and_non_positive_values(decimal value)
         {
             _user.IncreaseBalance(5);
 
@@ -80,5 +55,48 @@ namespace OnlineWallet.UnitTests.Domain
             exception.Should().BeOfType<DomainException>();
         }
 
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-0.01)]
+        [InlineData(-6)]
+        [InlineData(-23.55)]
+        public void IncreaseBalance_Should_throw_DomainException_while_given_negative_value(decimal value)
+        {
+            var exception = Record.Exception(() => _user.IncreaseBalance(value));
+
+            exception.Should().BeOfType<DomainException>();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(150)]
+        [InlineData(1000000000)]
+        [InlineData(52.55)]
+        public void IncreaseBalance_should_increase_Balance_by_given_value(decimal value)
+        {
+            var oldBalance = _user.Balance;
+            var newBalance = oldBalance + value;
+
+            _user.IncreaseBalance(value);
+
+            _user.Balance.Should().Be(newBalance);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-0.01)]
+        [InlineData(-6)]
+        [InlineData(-23.55)]
+        [InlineData(-100.55)]
+        [InlineData(100.56)]
+        [InlineData(101)]
+        public void ReduceBalance_Should_throw_DomainException_while_given_negative_or_greater_value(decimal value)
+        {
+            _user.IncreaseBalance(100.55M);
+
+            var exception = Record.Exception(() => _user.ReduceBalance(value));
+
+            exception.Should().BeOfType<DomainException>();
+        }
     }
 }
