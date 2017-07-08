@@ -1,6 +1,4 @@
-﻿using System;
-using FluentAssertions;
-using Moq;
+﻿using FluentAssertions;
 using OnlineWallet.Core.Domain;
 using Xunit;
 
@@ -41,10 +39,9 @@ namespace OnlineWallet.UnitTests.Domain
         public void Deposit_should_throw_DomainException_for_given_values(decimal value)
         {
 
-            var deposit = new Deposit(value, Users[0]);
+            var exception = Record.Exception(() => new Deposit(value, Users[0]));
 
-            deposit.UserFrom.Id.Should().Be(Users[0].Id);
-            deposit.Amount.Should().Be(value);
+            exception.Should().BeOfType<DomainException>();
         }
 
         [Theory]
@@ -70,10 +67,9 @@ namespace OnlineWallet.UnitTests.Domain
         public void Withdrawal_should_throw_DomainException_for_given_values(decimal value)
         {
 
-            var withdrawal = new Withdrawal(value, Users[0]);
+            var exception = Record.Exception(() => new Withdrawal(value, Users[0]));
 
-            withdrawal.UserFrom.Id.Should().Be(Users[0].Id);
-            withdrawal.Amount.Should().Be(value);
+            exception.Should().BeOfType<DomainException>();
         }
 
         [Theory]
@@ -110,11 +106,9 @@ namespace OnlineWallet.UnitTests.Domain
         public void Transfer_should_throw_DomainException_for_given_values(decimal value)
         {
 
-            var transfer = new Transfer(value, Users[0], Users[1]);
+            var exception = Record.Exception(() => new Transfer(value, Users[0],Users[1]));
 
-            transfer.UserFrom.Id.Should().Be(Users[0].Id);
-            transfer.UserTo.Id.Should().Be(Users[1].Id);
-            transfer.Amount.Should().Be(value);
+            exception.Should().BeOfType<DomainException>();
         }
     }
 }

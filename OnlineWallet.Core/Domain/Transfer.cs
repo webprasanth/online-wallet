@@ -1,4 +1,7 @@
-﻿namespace OnlineWallet.Core.Domain
+﻿using static OnlineWallet.Core.Domain.ErrorCodes;
+
+namespace OnlineWallet.Core.Domain
+
 {
     public class Transfer : Transaction
     {
@@ -7,9 +10,18 @@
         }
         public Transfer(decimal amount, User userFrom, User userTo) : base(amount, userFrom)
         {
-            UserTo = userTo;
+            UserTo = SetUserTo(userTo);
         }
 
         public User UserTo { get; protected set; }
+
+        private User SetUserTo(User userTo)
+        {
+            if (UserFrom.Id == userTo.Id)
+            {
+                throw new DomainException(InvalidUserTo,"Invalid user");
+            }
+            return userTo;
+        }
     }
 }

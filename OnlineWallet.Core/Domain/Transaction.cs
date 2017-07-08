@@ -1,4 +1,5 @@
 ﻿using System;
+using static OnlineWallet.Core.Domain.ErrorCodes;
 
 namespace OnlineWallet.Core.Domain
 {
@@ -10,7 +11,7 @@ namespace OnlineWallet.Core.Domain
         protected Transaction(decimal amount,User userFrom)
         {
             Id = Guid.NewGuid();
-            Amount = amount;
+            Amount = SetAmount(amount);
             UserFrom = userFrom;
             Date = DateTime.UtcNow;
         }
@@ -23,6 +24,13 @@ namespace OnlineWallet.Core.Domain
 
         public DateTime Date { get; protected set; }
 
-
+        private static decimal SetAmount(decimal amount)
+        {
+            if (amount < 1 || amount > 10000000) // 1 - 1,000,000
+            {
+                throw new DomainException(InvalidTransactionsAmount,"Amount of transaction must be between 1 and 1,000,000");
+            }
+            return amount;
+        }
     }
 }
