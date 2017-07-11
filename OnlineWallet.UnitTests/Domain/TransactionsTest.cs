@@ -6,10 +6,11 @@ namespace OnlineWallet.UnitTests.Domain
 {
     public class TransactionsTest
     {
-        private static readonly User[] Users;
-        static TransactionsTest()
+        private readonly User[] _users;
+
+        public TransactionsTest()
         {
-            Users = new[]
+            _users = new[]
             {
                 new User("test@test.com", "password123", "Full Name"),
                 new User("test2@test2.com", "2password2", "Full2 Name2")
@@ -23,9 +24,9 @@ namespace OnlineWallet.UnitTests.Domain
         [InlineData(10000000)]
         public void Deposit_should_be_created_for_given_values(decimal value)
         {
-            var deposit = new Deposit(value, Users[0]);
+            var deposit = new Deposit(value, _users[0]);
 
-            deposit.UserFrom.Id.Should().Be(Users[0].Id);
+            deposit.UserFrom.Id.Should().Be(_users[0].Id);
             deposit.Amount.Should().Be(value);
         }
 
@@ -39,7 +40,7 @@ namespace OnlineWallet.UnitTests.Domain
         public void Deposit_should_throw_DomainException_for_given_values(decimal value)
         {
 
-            var exception = Record.Exception(() => new Deposit(value, Users[0]));
+            var exception = Record.Exception(() => new Deposit(value, _users[0]));
 
             exception.Should().BeOfType<DomainException>();
         }
@@ -51,9 +52,9 @@ namespace OnlineWallet.UnitTests.Domain
         [InlineData(10000000)]
         public void Withdrawal_should_be_created_for_given_values(decimal value)
         {
-            var withdrawal = new Withdrawal(value, Users[0]);
+            var withdrawal = new Withdrawal(value, _users[0]);
 
-            withdrawal.UserFrom.Id.Should().Be(Users[0].Id);
+            withdrawal.UserFrom.Id.Should().Be(_users[0].Id);
             withdrawal.Amount.Should().Be(value);
         }
 
@@ -67,7 +68,7 @@ namespace OnlineWallet.UnitTests.Domain
         public void Withdrawal_should_throw_DomainException_for_given_values(decimal value)
         {
 
-            var exception = Record.Exception(() => new Withdrawal(value, Users[0]));
+            var exception = Record.Exception(() => new Withdrawal(value, _users[0]));
 
             exception.Should().BeOfType<DomainException>();
         }
@@ -80,10 +81,10 @@ namespace OnlineWallet.UnitTests.Domain
         public void Transfer_should_be_created_for_given_values(decimal value)
         {
 
-            var transfer = new Transfer(value, Users[0],Users[1]);
+            var transfer = new Transfer(value, _users[0],_users[1]);
 
-            transfer.UserFrom.Id.Should().Be(Users[0].Id);
-            transfer.UserTo.Id.Should().Be(Users[1].Id);
+            transfer.UserFrom.Id.Should().Be(_users[0].Id);
+            transfer.UserTo.Id.Should().Be(_users[1].Id);
             transfer.Amount.Should().Be(value);
         }
 
@@ -91,7 +92,7 @@ namespace OnlineWallet.UnitTests.Domain
         public void Transfer_should_throw_DomainException_for_the_same_user()
         {
             var value = 100;
-            var exception = Record.Exception(() => new Transfer(value, Users[0], Users[0]));
+            var exception = Record.Exception(() => new Transfer(value, _users[0], _users[0]));
 
             exception.Should().BeOfType<DomainException>();
         }
@@ -106,7 +107,7 @@ namespace OnlineWallet.UnitTests.Domain
         public void Transfer_should_throw_DomainException_for_given_values(decimal value)
         {
 
-            var exception = Record.Exception(() => new Transfer(value, Users[0],Users[1]));
+            var exception = Record.Exception(() => new Transfer(value, _users[0],_users[1]));
 
             exception.Should().BeOfType<DomainException>();
         }
