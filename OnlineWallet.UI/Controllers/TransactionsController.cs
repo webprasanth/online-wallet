@@ -19,12 +19,6 @@ namespace OnlineWallet.UI.Controllers
         {
         }
 
-        // GET: /<controller>/
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public IActionResult Transfer()
         {
@@ -41,7 +35,6 @@ namespace OnlineWallet.UI.Controllers
 
             Logger.Info("Processing transfer");
 
-            command.UserId = UserId;
             await DispatchAsync(command);
 
             Logger.Info("Transfer successful");
@@ -66,7 +59,6 @@ namespace OnlineWallet.UI.Controllers
 
             Logger.Info("Processing deposit");
 
-            command.UserId = UserId;
             await DispatchAsync(command);
 
             Logger.Info("Deposit successful");
@@ -90,7 +82,6 @@ namespace OnlineWallet.UI.Controllers
             }
             Logger.Info("Processing withdrawal");
 
-            command.UserId = UserId;
             await DispatchAsync(command);
 
             Logger.Info("Withdrawal successful");

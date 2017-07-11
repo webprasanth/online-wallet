@@ -63,11 +63,11 @@ namespace OnlineWallet.UI.Api
         /// <summary>
         /// Changes phone number of the User
         /// </summary>
-        /// <param name="command">phone</param>
+        /// <param name="command">Number</param>
         /// <returns></returns>
-        // GET: api/User/UpdatePhone
+        // PUT: api/User/UpdatePhone
         [HttpPut("UpdatePhone")]
-        public async Task<IActionResult> ChangePhoneNumber(ChangePhoneNumber command)
+        public async Task<IActionResult> ChangePhoneNumber([FromBody]ChangePhoneNumber command)
         {
             if (!ModelState.IsValid)
             {
@@ -84,9 +84,9 @@ namespace OnlineWallet.UI.Api
         /// </summary>
         /// <param name="command">Address</param>
         /// <returns></returns>
-        // GET: api/User/UpdateAddress
+        // PUT: api/User/UpdateAddress
         [HttpPut("UpdateAddress")]
-        public async Task<IActionResult> ChangeAddress(ChangeAddress command)
+        public async Task<IActionResult> ChangeAddress([FromBody]ChangeAddress command)
         {
             if (!ModelState.IsValid)
             {
@@ -103,9 +103,9 @@ namespace OnlineWallet.UI.Api
         /// </summary>
         /// <param name="command">password</param>
         /// <returns></returns>
-        // GET: api/User/UpdatePassword
+        // PUT: api/User/UpdatePassword
         [HttpPut("UpdatePassword")]
-        public async Task<IActionResult> ChangePassword(ChangePassword command)
+        public async Task<IActionResult> ChangePassword([FromBody]ChangePassword command)
         {
             if (!ModelState.IsValid)
             {
