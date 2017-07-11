@@ -61,13 +61,57 @@ namespace OnlineWallet.UI.Api
 
 
         /// <summary>
-        /// Change phone number of the User
+        /// Changes phone number of the User
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="command">phone</param>
         /// <returns></returns>
-        [HttpPut("ChangePhone")]
-        public async Task<IActionResult> ChangePhoneNumber([FromQuery]ChangePhoneNumber command)
+        // GET: api/User/UpdatePhone
+        [HttpPut("UpdatePhone")]
+        public async Task<IActionResult> ChangePhoneNumber(ChangePhoneNumber command)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await DispatchAsync(command);
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Changes address of the User
+        /// </summary>
+        /// <param name="command">Address</param>
+        /// <returns></returns>
+        // GET: api/User/UpdateAddress
+        [HttpPut("UpdateAddress")]
+        public async Task<IActionResult> ChangeAddress(ChangeAddress command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await DispatchAsync(command);
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Changes password of the User
+        /// </summary>
+        /// <param name="command">password</param>
+        /// <returns></returns>
+        // GET: api/User/UpdatePassword
+        [HttpPut("UpdatePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePassword command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             await DispatchAsync(command);
 
             return NoContent();
