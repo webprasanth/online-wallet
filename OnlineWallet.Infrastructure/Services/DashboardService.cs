@@ -20,12 +20,7 @@ namespace OnlineWallet.Infrastructure.Services
         public async Task<DashboardDataDto> GetDashboardDataAsync(Guid userId)
         {
 
-            var getAllTransactionsQuery = new GetAllTransactionsWithDetails()
-            {
-                UserId = userId
-            };
-
-            var allTransactions = await _transactionQueries.GetAllTransactionsWithDetailsAsync(getAllTransactionsQuery);
+            var allTransactions = await _transactionQueries.GetAllTransactionsWithDetailsAsync(userId);
             var user = await _userQueries.GetUserAsync(userId); // not sufficient. Can be omitted and use just one query
 
             if (user == null)

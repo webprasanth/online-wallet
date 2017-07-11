@@ -37,7 +37,7 @@ namespace OnlineWallet.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Activity(GetTransactionsWithDetails query)
+        public async Task<IActionResult> Activity(GetPagedTransactionsWithDetails query)
         {
             Logger.Info("Fetching User' activity");
 
@@ -48,10 +48,10 @@ namespace OnlineWallet.UI.Controllers
             if (!ModelState.IsValid)
             {
                 ViewData.Clear();
-                query = new GetTransactionsWithDetails();
+                query = new GetPagedTransactionsWithDetails();
             }
 
-            var pagedTransactions = await DispatchAsync<GetTransactionsWithDetails, IPagedList<TransactionDto>>(query);
+            var pagedTransactions = await DispatchAsync<GetPagedTransactionsWithDetails, IPagedList<TransactionDto>>(query);
 
             return View(pagedTransactions);
         }

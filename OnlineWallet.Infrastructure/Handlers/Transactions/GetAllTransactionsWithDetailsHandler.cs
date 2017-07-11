@@ -17,7 +17,7 @@ namespace OnlineWallet.Infrastructure.Handlers.Transactions
 
         public async Task<IEnumerable<TransactionDto>> RetrieveAsync(GetAllTransactionsWithDetails query)
         {
-            return await _transactionQueries.GetAllTransactionsWithDetailsAsync(query);
+            return await _transactionQueries.GetAllTransactionsWithDetailsAsync(query.UserId);
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using OnlineWallet.Infrastructure.Queries.Pagination;
 
 namespace OnlineWallet.Infrastructure.Queries.Transactions
 {
-    public class GetTransactionsWithDetails : IQuery
+    public class GetPagedTransactionsWithDetails : PagedQueryBase, IQuery
     {
         public Guid UserId { get; set; }
 

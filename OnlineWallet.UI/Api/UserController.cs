@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlineWallet.Infrastructure.Commands;
+using OnlineWallet.Infrastructure.Commands.Users;
 using OnlineWallet.Infrastructure.Dto;
 using OnlineWallet.Infrastructure.Queries;
 using OnlineWallet.Infrastructure.Queries.Transactions;
@@ -17,21 +19,58 @@ namespace OnlineWallet.UI.Api
         {
         }
 
+        /// <summary>
+        /// Gets a profile of the User
+        /// </summary>
+        /// <returns></returns>
         // GET: api/User
         [HttpGet("")]
-        public async Task<UserDto> Get()
+        public async Task<IActionResult> GetUser()
         {
             var user = await DispatchAsync<GetUser, UserDto>(new GetUser());
 
-            return user;
+            return Ok(user);
         }
 
+        [HttpGet("Transactions")]
+        public async Task<IActionResult> GetTransactions(GetTransactionsWithDetails query)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var transactions = await DispatchAsync<GetTransactionsWithDetails, IEnumerable<TransactionDto>>(query);
+
+            return Ok(transactions);
+        }
+
+        /// <summary>
+        /// Gets data about the User's transactions that can be used to make a charts
+        /// </summary>
+        /// <returns></returns>
+        // GET: api/User/Dashboard
         [HttpGet("Dashboard")]
-        public async Task<DashboardDataDto> Dashboard()
+        public async Task<IActionResult> Dashboard()
         {
             var dashboardData = await DispatchAsync<GetDashboardData, DashboardDataDto>(new GetDashboardData());
 
-            return dashboardData;
+            return Ok(dashboardData);
+        }
+
+
+        /// <summary>
+        /// Change phone number of the User
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("ChangePhone")]
+        public async Task<IActionResult> ChangePhoneNumber([FromQuery]ChangePhoneNumber command)
+        {
+            await DispatchAsync(command);
+
+            return NoContent();
         }
     }
 }

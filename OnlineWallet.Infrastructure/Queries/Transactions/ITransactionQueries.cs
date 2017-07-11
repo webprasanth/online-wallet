@@ -9,9 +9,9 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
     {
         Task<TransactionDto> GetTransactionAsync(Guid id);
 
-        Task<IEnumerable<TransactionDto>> GetAllTransactionsWithDetailsAsync(GetAllTransactionsWithDetails query);
+        Task<IEnumerable<TransactionDto>> GetAllTransactionsWithDetailsAsync(Guid userId);
 
-        Task<IEnumerable<TransactionDto>> GetTransactionsWithDetailsAsync(GetTransactionsWithDetails query);
+        Task<IEnumerable<TransactionDto>> GetTransactionsWithDetailsAsync(Guid userId, string type, string min, string max);
 
     }
 }

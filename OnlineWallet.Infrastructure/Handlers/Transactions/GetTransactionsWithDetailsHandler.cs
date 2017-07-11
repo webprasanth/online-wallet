@@ -1,13 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using OnlineWallet.Infrastructure.Dto;
 using OnlineWallet.Infrastructure.Queries;
-using OnlineWallet.Infrastructure.Queries.Pagination;
 using OnlineWallet.Infrastructure.Queries.Transactions;
-using X.PagedList;
 
 namespace OnlineWallet.Infrastructure.Handlers.Transactions
 {
-    public class GetTransactionsWithDetailsHandler : IQueryHandler<GetTransactionsWithDetails,IPagedList<TransactionDto>>
+    public class GetTransactionsWithDetailsHandler : IQueryHandler<GetTransactionsWithDetails,IEnumerable<TransactionDto>>
     {
         private readonly ITransactionQueries _transactionQueries;
 
@@ -16,13 +15,11 @@ namespace OnlineWallet.Infrastructure.Handlers.Transactions
             _transactionQueries = transactionQueries;
         }
 
-        public async Task<IPagedList<TransactionDto>> RetrieveAsync(GetTransactionsWithDetails query)
+        public async Task<IEnumerable<TransactionDto>> RetrieveAsync(GetTransactionsWithDetails query)
         {
-            var transactionDtos = await _transactionQueries.GetTransactionsWithDetailsAsync(query);
+            var transactionDtos = await _transactionQueries.GetTransactionsWithDetailsAsync(query.UserId,query.Type, query.Min, query.Max);
 
-            var pagedTransactions = await transactionDtos.PaginateAsync(query.Page, query.ItemsPerPage);
-
-            return pagedTransactions;
+            return transactionDtos;
         }
     }
 }

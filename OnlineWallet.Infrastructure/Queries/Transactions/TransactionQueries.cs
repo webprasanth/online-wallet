@@ -38,7 +38,7 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
             }
         }
 
-        public async Task<IEnumerable<TransactionDto>> GetAllTransactionsWithDetailsAsync(GetAllTransactionsWithDetails query)
+        public async Task<IEnumerable<TransactionDto>> GetAllTransactionsWithDetailsAsync(Guid userId)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -56,13 +56,13 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
                           WHERE [UserFromId] = @UserId OR [UserToId] = @UserId
 						  ORDER BY [T].[Date] DESC;";
 
-                var transactionDtos = await connection.QueryAsync<TransactionDto>(sql, new { UserId = query.UserId});
+                var transactionDtos = await connection.QueryAsync<TransactionDto>(sql, new { UserId = userId});
 
                 return transactionDtos;
             }
         }
 
-        public async Task<IEnumerable<TransactionDto>> GetTransactionsWithDetailsAsync(GetTransactionsWithDetails query)
+        public async Task<IEnumerable<TransactionDto>> GetTransactionsWithDetailsAsync(Guid userId, string type, string min, string max)
         {
             
             using (var connection = new SqlConnection(_connectionString))
@@ -81,25 +81,25 @@ namespace OnlineWallet.Infrastructure.Queries.Transactions
                           WHERE ([UserFromId] = @UserId OR [UserToId] = @UserId) ";
 
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("UserId", query.UserId);
+                parameters.Add("UserId", userId);
 
                 StringBuilder sqlSB = new StringBuilder(sqlBase);
 
                 //encapsulate and add more filters
-                if (!string.IsNullOrWhiteSpace(query.Type))
+                if (!string.IsNullOrWhiteSpace(type) && type.ToLowerInvariant() != "all")
                 {
                     sqlSB.Append(" AND [T].[Discriminator] = @type ");
-                    parameters.Add("type",query.Type);
+                    parameters.Add("type",type);
                 }
-                if (!string.IsNullOrWhiteSpace(query.Min))
+                if (!string.IsNullOrWhiteSpace(min))
                 {
                     sqlSB.Append(" AND [T].[Amount] >= @min ");
-                    parameters.Add("min", query.Min);
+                    parameters.Add("min", min);
                 }
-                if (!string.IsNullOrWhiteSpace(query.Max))
+                if (!string.IsNullOrWhiteSpace(max))
                 {
                     sqlSB.Append(" AND [T].[Amount] <= @max ");
-                    parameters.Add("max", query.Max);
+                    parameters.Add("max", max);
                 }
 
                 const string sqlOrder = " ORDER BY [T].[Date] DESC;";
