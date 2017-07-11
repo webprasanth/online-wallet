@@ -2,10 +2,8 @@
     var ctx = document.getElementById('tdwChart').getContext('2d');
     var chart = new Chart(ctx,
         {
-            // The type of chart we want to create
             type: 'pie',
 
-            // The data for our dataset
             data: {
                 labels: ["Transfers", "Deposits", "Withdrawals"],
                 datasets: [
@@ -18,8 +16,13 @@
                 ]
             },
 
-            // Configuration options go here
-            options: {}
+            options: {
+                legend: {
+                    labels: {
+                        fontColor: '#ebebeb'
+                    }
+                }
+            }
         });
 };
 
@@ -27,10 +30,8 @@ function createIOchart(t, d, w) {
     var ctx = document.getElementById('ioChart').getContext('2d');
     var chart = new Chart(ctx,
         {
-            // The type of chart we want to create
             type: 'pie',
 
-            // The data for our dataset
             data: {
                 labels: ["Incomes", "Outcomes"],
                 datasets: [
@@ -43,7 +44,12 @@ function createIOchart(t, d, w) {
                 ]
             },
 
-            // Configuration options go here
-            options: {}
+            options: {
+                legend: {
+                    labels: {
+                        fontColor: '#ebebeb'
+                    }
+                }
+            }
         });
 };
