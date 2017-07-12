@@ -8,6 +8,7 @@ using OnlineWallet.Infrastructure.Queries;
 using OnlineWallet.Infrastructure.Dto;
 using OnlineWallet.Infrastructure.Queries.Transactions;
 using OnlineWallet.Infrastructure.Queries.Users;
+using OnlineWallet.UI.Framework.Filters;
 using X.PagedList;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,6 +16,7 @@ using X.PagedList;
 namespace OnlineWallet.UI.Controllers
 {
     [Authorize]
+    [TypeFilter(typeof(CustomExceptionFilter))]
     public class UsersController : ControllerBase
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();

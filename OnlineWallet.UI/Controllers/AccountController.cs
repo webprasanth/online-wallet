@@ -6,12 +6,14 @@ using NLog;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Queries;
 using OnlineWallet.Infrastructure.Services;
+using OnlineWallet.UI.Framework.Filters;
 using OnlineWallet.UI.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace OnlineWallet.UI.Controllers
 {
+    [TypeFilter(typeof(CustomExceptionFilter))]
     public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;

@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using OnlineWallet.Infrastructure.Services;
 
 namespace OnlineWallet.UI.Framework
@@ -27,7 +28,7 @@ namespace OnlineWallet.UI.Framework
             }
         }
 
-        private static async Task HandleAsync(HttpContext context,Exception exception)
+        private static Task HandleAsync(HttpContext context,Exception exception)
         {
             var errorCode = "error";
             var statusCode = HttpStatusCode.BadRequest;
@@ -48,10 +49,11 @@ namespace OnlineWallet.UI.Framework
                     break;
             }
 
-            context.Response.ContentType = "text/plain";
+            var response = new { code = errorCode, message = exception.Message };
+            var payload = JsonConvert.SerializeObject(response);
+            context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)statusCode;
-            var response = $"{errorCode} {context.Response.StatusCode}\n{exception.Message}\n";
-            await context.Response.WriteAsync(response);
+            return context.Response.WriteAsync(payload);
         }
     }
 }

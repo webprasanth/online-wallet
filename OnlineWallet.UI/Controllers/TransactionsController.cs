@@ -5,12 +5,14 @@ using NLog;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.Transactions;
 using OnlineWallet.Infrastructure.Queries;
+using OnlineWallet.UI.Framework.Filters;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace OnlineWallet.UI.Controllers
 {
     [Authorize]
+    [TypeFilter(typeof(CustomExceptionFilter))]
     public class TransactionsController : ControllerBase
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();

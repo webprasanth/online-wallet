@@ -17,8 +17,7 @@ using NLog.Web;
 using OnlineWallet.Core;
 using OnlineWallet.Infrastructure.Data;
 using OnlineWallet.Infrastructure.IoC.Modules;
-using OnlineWallet.UI.Framework.Filters;
-
+using OnlineWallet.UI.Framework;
 namespace OnlineWallet.UI
 {
     public class Startup
@@ -58,7 +57,7 @@ namespace OnlineWallet.UI
             {
                 services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(_config["ConnectionStrings:LocalMSSQL"]));
                 builder.RegisterModule(new QueriesModule(_config["ConnectionStrings:LocalMSSQL"]));
-            }
+        }
             else
             {
                 services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("SQLCONNSTR_Azure")));
@@ -71,7 +70,7 @@ namespace OnlineWallet.UI
 
             services.AddAuthorization();
 
-            services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilter)));
+            services.AddMvc();
 
             builder.Populate(services);
             builder.RegisterModule<CommandModule>();
@@ -95,9 +94,8 @@ namespace OnlineWallet.UI
             }
             else
             {
-                //app.UseCustomExceptionHandler();
+                app.UseCustomExceptionHandler();
             }
-            
 
             app.UseStaticFiles();
 

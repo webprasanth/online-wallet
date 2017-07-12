@@ -57,7 +57,7 @@ namespace OnlineWallet.Infrastructure.Services
 
             if (userReceivingTransfer == null)
             {
-                throw new ServiceException(UserNotFound, "user of given email does not exists.");
+                throw new ServiceException(UserNotFound, "user of given email does not exist.");
             }
 
             var userMakingTransfer = await _unitOfWork.Users.GetAsync(userId);
