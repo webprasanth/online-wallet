@@ -22,7 +22,7 @@ namespace OnlineWallet.UI.Framework.Filters
         public override void OnException(ExceptionContext context)
         {
             Logger.Error(context.Exception);
-            if (context.ExceptionHandled)
+            if (context.ExceptionHandled || context.HttpContext.Request.Path.StartsWithSegments("/api"))
             {
                 return;
             }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.Transactions;
@@ -8,6 +9,7 @@ using OnlineWallet.Infrastructure.Queries;
 
 namespace OnlineWallet.UI.Api
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class TransactionController : Controllers.ControllerBase
     {

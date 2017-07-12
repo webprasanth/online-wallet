@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,14 +11,17 @@ using OnlineWallet.Infrastructure.Repositories;
 using OnlineWallet.Infrastructure.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using OnlineWallet.Core;
 using OnlineWallet.Infrastructure.Data;
 using OnlineWallet.Infrastructure.IoC.Modules;
+using OnlineWallet.Infrastructure.Settings;
 using OnlineWallet.UI.Framework;
 namespace OnlineWallet.UI
 {
@@ -50,6 +55,8 @@ namespace OnlineWallet.UI
             services.AddScoped<ITransactionService, TransactionService>();
 
             services.AddScoped<IDashboardService, DashboardService>();
+
+            services.AddSingleton<IJwtService, JwtService>();
 
             var builder = new ContainerBuilder();
 
@@ -99,6 +106,19 @@ namespace OnlineWallet.UI
 
             app.UseStaticFiles();
 
+            var jwtSettings = new JwtSettings();
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidateAudience = false
+                }
+            });
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
                 AuthenticationScheme = "Cookie",
@@ -106,7 +126,20 @@ namespace OnlineWallet.UI
                 LogoutPath = new PathString("/Account/Logout"),
                 AccessDeniedPath = new PathString("/Home/Forbidden/"), //TO DO
                 AutomaticAuthenticate = true,
-                AutomaticChallenge = true
+                AutomaticChallenge = true,
+                Events = new CookieAuthenticationEvents()
+                {
+                    OnRedirectToLogin = ctx =>
+                    {
+                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                        {
+                            ctx.Response.StatusCode = 401;
+                            return Task.FromResult<object>(null);
+                        }
+                        ctx.Response.Redirect(ctx.RedirectUri);
+                        return Task.FromResult<object>(null);
+                    }
+                }
             });
 
 

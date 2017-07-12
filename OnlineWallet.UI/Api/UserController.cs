@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineWallet.Infrastructure.Commands;
 using OnlineWallet.Infrastructure.Commands.Users;
@@ -12,6 +13,7 @@ using OnlineWallet.Infrastructure.Queries.Users;
 
 namespace OnlineWallet.UI.Api
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class UserController : Controllers.ControllerBase
     {
