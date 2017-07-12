@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using NLog;
@@ -13,6 +14,7 @@ using OnlineWallet.Infrastructure.Queries;
 
 namespace OnlineWallet.UI.Api
 {
+    [EnableCors("default")]
     [Route("api/Account")]
     public class AccountApiController : Controllers.ControllerBase
     {

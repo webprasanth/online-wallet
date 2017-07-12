@@ -13,6 +13,7 @@ using OnlineWallet.Infrastructure.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -92,7 +93,10 @@ namespace OnlineWallet.UI
             services.AddSingleton(AutoMapperConfig.Initialize());
 
             services.AddAuthorization();
-
+            services.AddCors(options => options.AddPolicy("default", new CorsPolicy()
+            {
+                SupportsCredentials = true
+            }));
             services.AddMvc();
 
             builder.Populate(services);
