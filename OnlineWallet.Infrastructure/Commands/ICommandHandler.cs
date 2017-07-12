@@ -2,7 +2,7 @@
 
 namespace OnlineWallet.Infrastructure.Commands
 {
-    public interface ICommandHandler<T> where T : ICommand
+    public interface ICommandHandler<T>
     {
         Task HandleAsync(T command);
     }

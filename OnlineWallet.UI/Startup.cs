@@ -57,6 +57,7 @@ namespace OnlineWallet.UI
             services.AddScoped<IDashboardService, DashboardService>();
 
             services.AddSingleton<IJwtService, JwtService>();
+            services.AddMemoryCache();
 
             var builder = new ContainerBuilder();
 

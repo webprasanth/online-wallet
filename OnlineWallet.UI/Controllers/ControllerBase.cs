@@ -13,7 +13,7 @@ namespace OnlineWallet.UI.Controllers
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
 
-        protected Guid UserId
+        protected virtual Guid UserId
             => HttpContext.User.Identity.IsAuthenticated ? Guid.Parse(HttpContext.User.Identity.Name) : Guid.Empty;
 
         protected ControllerBase(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)

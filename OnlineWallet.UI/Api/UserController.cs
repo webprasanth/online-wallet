@@ -31,9 +31,20 @@ namespace OnlineWallet.UI.Api
         {
             var user = await DispatchAsync<GetUser, UserDto>(new GetUser());
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             return Ok(user);
         }
 
+        /// <summary>
+        /// Gets transactions of the User
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        // GET: api/User/Transactions
         [HttpGet("Transactions")]
         public async Task<IActionResult> GetTransactions(GetTransactionsWithDetails query)
         {

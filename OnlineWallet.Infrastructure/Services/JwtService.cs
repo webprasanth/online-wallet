@@ -17,13 +17,14 @@ namespace OnlineWallet.Infrastructure.Services
             _settings = new JwtSettings(); //TO DO: IoC
         }
 
-        public JwtTokenDto CreateToken(string email)
+        public JwtTokenDto CreateToken(Guid userId)
         {
             var now = DateTime.UtcNow;
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, email),
+                new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.Ticks.ToString(), ClaimValueTypes.Integer64)
             };
@@ -43,7 +44,8 @@ namespace OnlineWallet.Infrastructure.Services
             return new JwtTokenDto()
             {
                 Token = token,
-                Expires = expires.Ticks
+                Expires = expires.Ticks,
+                UserId = userId
             };
         }
     }

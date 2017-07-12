@@ -1,9 +1,10 @@
-﻿using OnlineWallet.Infrastructure.Dto;
+﻿using System;
+using OnlineWallet.Infrastructure.Dto;
 
 namespace OnlineWallet.Infrastructure.Services
 {
     public interface IJwtService
     {
-        JwtTokenDto CreateToken(string email);
+        JwtTokenDto CreateToken(Guid userId);
     }
 }
