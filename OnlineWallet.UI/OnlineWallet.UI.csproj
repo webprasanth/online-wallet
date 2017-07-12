@@ -10,6 +10,10 @@
     <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp1.1\api.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Update="nlog.conf">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -46,6 +50,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.1.0" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-beta5" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.4.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
     <PackageReference Include="X.PagedList" Version="7.1.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="1.0.4-beta" />
   </ItemGroup>

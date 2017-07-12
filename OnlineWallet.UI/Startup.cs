@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using NLog.Extensions.Logging;
 using NLog.Web;
@@ -23,6 +25,8 @@ using OnlineWallet.Infrastructure.Data;
 using OnlineWallet.Infrastructure.IoC.Modules;
 using OnlineWallet.Infrastructure.Settings;
 using OnlineWallet.UI.Framework;
+using Swashbuckle.AspNetCore.Swagger;
+
 namespace OnlineWallet.UI
 {
     public class Startup
@@ -58,6 +62,17 @@ namespace OnlineWallet.UI
 
             services.AddSingleton<IJwtService, JwtService>();
             services.AddMemoryCache();
+
+            // Register the Swagger generator, defining one or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Simple docs", Version = "v1" });
+
+                //Set the comments path for the swagger json and ui.
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var xmlPath = Path.Combine(basePath, "api.xml");
+                c.IncludeXmlComments(xmlPath);
+            });
 
             var builder = new ContainerBuilder();
 
@@ -153,6 +168,14 @@ namespace OnlineWallet.UI
                     );
             });
 
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+            });
 
             // To dispose of resources that have been resolved in the application container, register for the "ApplicationStopped" event.
             appLifetime.ApplicationStopped.Register(() => ApplicationContaianer.Dispose());

@@ -26,6 +26,7 @@
             <div class="collapse navbar-collapse" id="navBar">
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a href="/swagger">API</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="Users" asp-action="Index">Profile</a></li>
