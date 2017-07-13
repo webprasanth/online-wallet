@@ -44,7 +44,7 @@ namespace OnlineWallet.UI
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("config.json");
+                .AddJsonFile("appsettings.json");
 
             _config = builder.Build();
         }
@@ -81,16 +81,24 @@ namespace OnlineWallet.UI
             {
                 services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(_config["ConnectionStrings:LocalMSSQL"]));
                 builder.RegisterModule(new QueriesModule(_config["ConnectionStrings:LocalMSSQL"]));
-        }
+                services.Configure<JwtSettings>(_config.GetSection("Jwt"));
+            }
             else
             {
                 services.AddDbContext<OnlineWalletContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("SQLCONNSTR_Azure")));
                 builder.RegisterModule(new QueriesModule(Environment.GetEnvironmentVariable("SQLCONNSTR_Azure")));
+                services.Configure<JwtSettings>(o =>
+                {
+                    o.Issuer = Environment.GetEnvironmentVariable("Issuer");
+                    o.ExpiryMinutes = Environment.GetEnvironmentVariable("ExpiryMinutes");
+                    o.Key = Environment.GetEnvironmentVariable("Key");
+                });
             }
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton(AutoMapperConfig.Initialize());
+
 
             services.AddAuthorization();
             services.AddCors(options => options.AddPolicy("default", new CorsPolicy()
@@ -115,18 +123,25 @@ namespace OnlineWallet.UI
             app.AddNLogWeb();
             _env.ConfigureNLog("nlog.conf");
 
+            JwtSettings jwtSettings;
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                jwtSettings = _config.GetSection("Jwt").Get<JwtSettings>();
             }
             else
             {
                 app.UseCustomExceptionHandler();
+                jwtSettings = new JwtSettings()
+                {
+                    ExpiryMinutes = Environment.GetEnvironmentVariable("ExpiryMinutes"),
+                    Issuer = Environment.GetEnvironmentVariable("Issuer"),
+                    Key = Environment.GetEnvironmentVariable("Key")
+                };
             }
 
             app.UseStaticFiles();
 
-            var jwtSettings = new JwtSettings();
             app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
                 AutomaticAuthenticate = true,

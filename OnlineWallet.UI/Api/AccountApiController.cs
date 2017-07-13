@@ -47,7 +47,7 @@ namespace OnlineWallet.UI.Api
 
             var jwtToken = _memoryCache.GetToken(command.TokenId);
 
-           return Ok(jwtToken.Token);
+           return Ok(jwtToken);
         }
     }
 }

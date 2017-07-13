@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using OnlineWallet.Infrastructure.Dto;
 using OnlineWallet.Infrastructure.Settings;
@@ -10,11 +11,11 @@ namespace OnlineWallet.Infrastructure.Services
 {
     public class JwtService : IJwtService
     {
-        private readonly JwtSettings _settings;
+        private readonly JwtSettings _subJwtOptions;
 
-        public JwtService()
+        public JwtService(IOptions<JwtSettings> subJwtOptions)
         {
-            _settings = new JwtSettings(); //TO DO: IoC
+            _subJwtOptions = subJwtOptions.Value;
         }
 
         public JwtTokenDto CreateToken(Guid userId)
@@ -29,11 +30,13 @@ namespace OnlineWallet.Infrastructure.Services
                 new Claim(JwtRegisteredClaimNames.Iat, now.Ticks.ToString(), ClaimValueTypes.Integer64)
             };
 
-            var expires = now.AddMinutes(_settings.ExpiryMinutes);
-            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key)),
+            var minutes = int.Parse(_subJwtOptions.ExpiryMinutes);
+
+            var expires = now.AddMinutes(minutes);
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_subJwtOptions.Key)),
                 SecurityAlgorithms.HmacSha256);
             var jwt = new JwtSecurityToken(
-                issuer: _settings.Issuer,
+                issuer: _subJwtOptions.Issuer,
                 claims: claims,
                 notBefore: now,
                 expires: expires,
@@ -44,8 +47,7 @@ namespace OnlineWallet.Infrastructure.Services
             return new JwtTokenDto()
             {
                 Token = token,
-                Expires = expires.Ticks,
-                UserId = userId
+                Expires = expires.Ticks
             };
         }
     }

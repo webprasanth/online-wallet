@@ -2,8 +2,12 @@
 {
     public class JwtSettings
     {
-        public string Key { get; set; } = "1(YouCantSeeMe)2mytimeisnow";
-        public int ExpiryMinutes { get; set; } = 10;
-        public string Issuer { get; set; } = "http://onlinewallet.azurewebsites.net";
+        public JwtSettings()
+        {
+            
+        }
+        public string Key { get; set; }
+        public string Issuer { get; set; }
+        public string ExpiryMinutes { get; set; }
     }
 }
