@@ -19,6 +19,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\style.css" />
+    <Content Include="wwwroot\js\charts.js" />
+    <Content Include="wwwroot\js\dashboard.js" />
+    <Content Include="wwwroot\js\script.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="nlog.conf">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
@@ -30,6 +37,11 @@
     </None>
   </ItemGroup>
 
+  <Target Name="AfterBuild" AfterTargets="Build">
+    <Exec Command="npm install" />
+    <Exec Command="gulp minify" />
+  </Target>
+  
   <ItemGroup>
     <ProjectReference Include="..\OnlineWallet.Infrastructure\OnlineWallet.Infrastructure.csproj" />
   </ItemGroup>

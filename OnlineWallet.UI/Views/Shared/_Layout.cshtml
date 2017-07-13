@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - Online Wallet</title>
 
-    <link href="~/lib/css/style.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootswatch/superhero/bootstrap.css" />
 </head>
@@ -26,7 +26,6 @@
             <div class="collapse navbar-collapse" id="navBar">
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a href="/swagger">API</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="Users" asp-action="Index">Profile</a></li>
@@ -42,6 +41,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <li><a href="/swagger">API</a></li>
                         <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
                     }
                     @if (!User.Identity.IsAuthenticated)
@@ -63,9 +63,16 @@
         </div>
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/lib/js/script.js"></script>
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/script.js"></script>
+    </environment>
+    <environment names="Production">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" asp-fallback-src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/lib/_app/script.js"></script>
+    </environment>
     @RenderSection("scripts", false)
 </body>
 </html>

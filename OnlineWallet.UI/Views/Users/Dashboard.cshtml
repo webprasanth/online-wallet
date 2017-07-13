@@ -2,9 +2,16 @@
 
 @section scripts
 {
-    <script src="~/lib/chart.js/dist/Chart.min.js"></script>
-    <script src="~/lib/js/charts.js"></script>
-    <script src="~/lib/js/dashboard.js"></script>
+    <environment names="Development">
+        <script src="~/lib/chart.js/dist/Chart.js"></script>
+        <script src="~/js/charts.js"></script>
+        <script src="~/js/dashboard.js"></script>
+    </environment>
+    <environment names="Production">
+        <script src="~/lib/chart.js/dist/Chart.min.js"></script>
+        <script src="~/lib/_app/charts.js"></script>
+        <script src="~/lib/_app/dashboard.js"></script>
+    </environment>
 }
 
 <div class="col-md-11 col-md-offset-1">
