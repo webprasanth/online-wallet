@@ -9,7 +9,8 @@
 - show and filter history of transactions
 - simple dashboard with charts
 
-##### live demo: http://onlinewallet.azurewebsites.net/
+#### live demo: http://onlinewallet.azurewebsites.net/ 
+ test user: ``` test1@test.com:test1test1 ```
 
 ## The main objective of this project is to help me learn following concepts:
 * ASP.NET Core MVC, Web API 
