@@ -46,10 +46,7 @@ namespace OnlineWallet.Core.Domain
             {
                 throw new DomainException(InvalidBalance, "Cannot set balance to negative");
             }
-            else
-            {
                 Balance = value;
-            }
         }
 
         public void SetEmail(string email)
@@ -142,10 +139,7 @@ namespace OnlineWallet.Core.Domain
             {
                 throw new DomainException(InvalidBalance, "Cannot increase with non positive value");
             }
-            else
-            {
                 SetBalance(Balance+value);
-            }
         }
 
         public void ReduceBalance(decimal value)
@@ -158,12 +152,7 @@ namespace OnlineWallet.Core.Domain
             {
                 throw new DomainException(InvalidBalance, "Insuficient funds");
             }
-            else
-            {
                 SetBalance(Balance - value);
-            }
         }
-
-
     }
 }
