@@ -1,1 +1,1 @@
-TransactionsViewModel=function(r){function e(r){return"Transfer"!==r.Type?"Internal":r.UserFrom}self.transactions=ko.observableArray(ko.utils.arrayMap(r,function(r){var n=e(r);return{UserFrom:n,UserTo:n,Type:r.Type,Date:r.Date,Amount:r.Amount,Id:r.Id}}))};
+TransactionsViewModel=function(r){function e(r){return"Transfer"!==r.Type?"Internal":r.UserFrom}self.transactions=ko.observableArray(ko.utils.arrayMap(r,function(r){var n=e(r);return{UserFrom:n,UserTo:n,Type:r.Type,Date:r.Date,Amount:r.Amount.toFixed(2),Id:r.Id}}))};

@@ -70,7 +70,7 @@
         </thead>
         <tbody data-bind="foreach: transactions">
                     <tr>
-                        <td><span data-bind="text: Type"></span></td>
+                        <td><span data-bind="text: Type, css: incomingOrNot"></span></td>
                         <td><span data-bind="text: Amount"></span></td>
                         <td><span data-bind="text: moment(Date).format('LLL')"></span></td>
                         <td><span data-bind="text: UserFrom"></span></td>
