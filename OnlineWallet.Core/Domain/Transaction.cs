@@ -11,8 +11,8 @@ namespace OnlineWallet.Core.Domain
         protected Transaction(decimal amount,User userFrom)
         {
             Id = Guid.NewGuid();
-            Amount = SetAmount(amount);
-            UserFrom = userFrom;
+            SetAmount(amount);
+            SetUserFrom(userFrom);
             Date = DateTime.UtcNow;
         }
 
@@ -24,13 +24,18 @@ namespace OnlineWallet.Core.Domain
 
         public DateTime Date { get; protected set; }
 
-        private static decimal SetAmount(decimal amount)
+        private void SetAmount(decimal amount)
         {
             if (amount < 1 || amount > 10000000) // 1 - 1,000,000
             {
                 throw new DomainException(InvalidTransactionsAmount,"Amount of transaction must be between 1 and 1,000,000");
             }
-            return amount;
+            Amount = amount;
+        }
+
+        private void SetUserFrom(User user)
+        {
+            UserFrom = user ?? throw new DomainException(InvalidUserFrom,"User who does transaction cannot be null");
         }
     }
 }

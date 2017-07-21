@@ -10,18 +10,18 @@ namespace OnlineWallet.Core.Domain
         }
         public Transfer(decimal amount, User userFrom, User userTo) : base(amount, userFrom)
         {
-            UserTo = SetUserTo(userTo);
+            SetUserTo(userTo);
         }
 
         public User UserTo { get; protected set; }
 
-        private User SetUserTo(User userTo)
+        private void SetUserTo(User userTo)
         {
             if (UserFrom.Id == userTo.Id)
             {
                 throw new DomainException(InvalidUserTo,"Invalid user");
             }
-            return userTo;
+            UserTo = userTo;
         }
     }
 }
