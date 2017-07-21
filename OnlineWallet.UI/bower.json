@@ -17,6 +17,8 @@
     "bootswatch": "3.3.5+4",
     "jquery-validation": "1.16.0",
     "jquery-validation-unobtrusive": "^3.2.6",
-    "chart.js": "^2.6.0"
+    "chart.js": "^2.6.0",
+    "knockout": "^3.4.2",
+    "moment": "^2.18.1"
   }
 }
