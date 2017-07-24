@@ -19,10 +19,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\js\transactionsvm.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="nlog.conf">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
