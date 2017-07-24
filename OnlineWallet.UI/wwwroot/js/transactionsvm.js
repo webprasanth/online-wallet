@@ -1,8 +1,5 @@
-﻿var userEmail; //temporary
-$.get('/api/User/',
-    function (user) {
-        userEmail = user.email;
-    });
+﻿var $userHelloEmail = $("#userHelloEmail").text().split(" ");
+var userEmail = $userHelloEmail[1];
 
 TransactionsViewModel = function (transactions) {
     self.transactions = ko.observableArray(
