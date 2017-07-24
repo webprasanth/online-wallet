@@ -36,21 +36,9 @@
                             <li><a asp-controller="Transactions" asp-action="Transfer">Transfer</a></li>
                             <li><a asp-controller="Transactions" asp-action="Withdraw">Withdraw</a></li>
                         }
-
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li><a href="/swagger">API</a></li>
-                            <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
-                        }
-                        @if (!User.Identity.IsAuthenticated)
-                        {
-                            <li><a asp-controller="Account" asp-action="Login">Login</a></li>
-                            <li><a asp-controller="Account" asp-action="Register">Register</a></li>
-                        }
-                    </ul>
+                    @await Component.InvokeAsync("LoginStatus")
                 </div>
             </nav>
         </div>
