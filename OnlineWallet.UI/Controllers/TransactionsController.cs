@@ -65,7 +65,7 @@ namespace OnlineWallet.UI.Controllers
 
             Logger.Info("Deposit successful");
 
-            return RedirectToAction("Index", "Users");
+            return RedirectToAction("Activity", "Users");
 
         }
 
@@ -88,7 +88,7 @@ namespace OnlineWallet.UI.Controllers
 
             Logger.Info("Withdrawal successful");
 
-            return RedirectToAction("Index", "Users");
+            return RedirectToAction("Activity", "Users");
 
         }
 
