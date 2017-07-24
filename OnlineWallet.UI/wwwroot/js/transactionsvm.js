@@ -20,9 +20,9 @@ function setIncomingOrNotStyle(item) {
     var style;
     if (item.Type === "Transfer") {
         if (item.UserFrom === userEmail)
-            style = "text-success";
-        else
             style = "text-danger";
+        else
+            style = "text-success";
     }
     else if (item.Type === "Withdrawal") {
         style = "text-danger";
