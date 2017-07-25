@@ -21,4 +21,4 @@
 * DI, IOC
 * Repositry pattern and maybe few others when needed
 * Basics of tests (xUnit)
-* Basics of Javascript/jQuery, Bootstrap
+* Basics of Javascript/jQuery, Bootstrap, Knockout
